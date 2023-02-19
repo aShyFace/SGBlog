@@ -1,49 +1,86 @@
 package com.example.domain.entity;
 
 import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.Data;
 
 /**
- * 文章表(Article)表实体类
+ * 文章表(SgArticle)表实体类
  *
  * @author makejava
- * @since 2023-02-15 19:30:21
+ * @since 2023-02-19 22:36:28
  */
+@TableName(value="${tableClass.getName}")
+@ApiModel(value="${tableClass.name}对象", description="${tableClass.comment}")
 @SuppressWarnings(value={"serial", "unused"})
 @AllArgsConstructor
 @NoArgsConstructor
-public class Article {
-    
+@Data
+public class SgArticle {
+
+    @TableId(value="id")
+    @ApiModelProperty(value="${column.comment}")
     private Long id;
-    //标题
+
+
+    @TableField(value="title")
+    @ApiModelProperty(value="标题")
     private String title;
-    //文章内容
+    
+    @TableField(value="content")
+    @ApiModelProperty(value="文章内容")
     private String content;
-    //文章摘要
+    
+    @TableField(value="summary")
+    @ApiModelProperty(value="文章摘要")
     private String summary;
-    //所属分类id
+    
+    @TableField(value="categoryId")
+    @ApiModelProperty(value="所属分类id")
     private Long categoryId;
-    //缩略图
+    
+    @TableField(value="thumbnail")
+    @ApiModelProperty(value="缩略图")
     private String thumbnail;
-    //是否置顶（0否，1是）
+    
+    @TableField(value="isTop")
+    @ApiModelProperty(value="是否置顶（0否，1是）")
     private String isTop;
-    //状态（0已发布，1草稿）
+    
+    @TableField(value="status")
+    @ApiModelProperty(value="状态（0已发布，1草稿）")
     private String status;
-    //访问量
+    
+    @TableField(value="viewCount")
+    @ApiModelProperty(value="访问量")
     private Long viewCount;
-    //是否允许评论 1是，0否
+    
+    @TableField(value="isComment")
+    @ApiModelProperty(value="是否允许评论 1是，0否")
     private String isComment;
     
+        @ApiModelProperty(value="${column.comment}")
     private Long createBy;
     
+        @ApiModelProperty(value="${column.comment}")
     private Date createTime;
     
+        @ApiModelProperty(value="${column.comment}")
     private Long updateBy;
     
+        @ApiModelProperty(value="${column.comment}")
     private Date updateTime;
-    //删除标志（0代表未删除，1代表已删除）
+    
+    @TableField(value="delFlag")
+    @ApiModelProperty(value="删除标志（0代表未删除，1代表已删除）")
     private Integer delFlag;
+    
 
 
     public Long getId() {
