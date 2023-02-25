@@ -1,7 +1,8 @@
 package com.example.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.entity.Article;
+import com.example.domain.ResponseResult;
+import com.example.domain.entity.Article;
 
 /**
  * 文章表(Article)表服务接口
@@ -11,5 +12,6 @@ import com.example.entity.Article;
  */
 public interface ArticleService extends IService<Article> {
 
+    ResponseResult<Article> hotArticalList();
 }
 
