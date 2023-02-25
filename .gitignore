@@ -1,3 +1,4 @@
 .idea/
+!code/SGBlog/.idea
 test/
 target/
