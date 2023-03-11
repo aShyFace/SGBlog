@@ -30,7 +30,7 @@ public class ArticleController {
         return articleService.list();
     }
 
-    @RequestMapping("/hotArticalList")
+    @RequestMapping("/hotArticleList")
     public ResponseResult<Article> hotArticalList(){
         ResponseResult<Article> articalList = articleService.hotArticalList();
         return articalList;
