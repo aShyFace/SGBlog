@@ -2,6 +2,7 @@ package com.example.controller;
 
 
 
+import com.example.domain.dto.HotArticleDto;
 import com.example.domain.ResponseResult;
 import com.example.domain.entity.Article;
 import com.example.service.ArticleService;
@@ -31,9 +32,9 @@ public class ArticleController {
     }
 
     @RequestMapping("/hotArticleList")
-    public ResponseResult<Article> hotArticalList(){
-        ResponseResult<Article> articalList = articleService.hotArticalList();
-        return articalList;
+    public ResponseResult<HotArticleDto> hotArticleList(){
+        List<HotArticleDto> data = articleService.hotArticleList();
+        return ResponseResult.okResult(data);
     }
 }
 

@@ -14,7 +14,6 @@
         <module>sangeng-blog</module>
     </modules>
 
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
@@ -23,6 +22,7 @@
 
     <dependencyManagement>
         <dependencies>
+<!--    可曾听闻cmake里的set——告诉cmake依赖的库去哪里找        -->
             <!-- SpringBoot的依赖配置-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -77,6 +77,7 @@
         </dependencies>
     </dependencyManagement>
 
+<!--    &lt;!&ndash;  构建项目时所需的信息  &ndash;&gt;-->
 <!--    <build>-->
 <!--        <plugins>-->
 <!--            <plugin>-->
@@ -89,7 +90,22 @@
 <!--                    <encoding>${project.build.sourceEncoding}</encoding>-->
 <!--                </configuration>-->
 <!--            </plugin>-->
+
 <!--        </plugins>-->
 <!--    </build>-->
 
+<!--    &lt;!&ndash;发现依赖和扩展的远程仓库列表。&ndash;&gt;-->
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>spring-releases</id>-->
+<!--            <url>https://repo.spring.io/libs-release</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
+<!--     &lt;!&ndash;发现插件的远程仓库列表，这些插件用于构建和报表&ndash;&gt;-->
+<!--    <pluginRepositories>-->
+<!--        <pluginRepository>-->
+<!--            <id>spring-releases</id>-->
+<!--            <url>https://repo.spring.io/libs-release</url>-->
+<!--        </pluginRepository>-->
+<!--    </pluginRepositories>-->
 </project>
