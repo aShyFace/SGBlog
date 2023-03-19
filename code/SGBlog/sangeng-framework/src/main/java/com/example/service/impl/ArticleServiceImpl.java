@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.constant.ArticleConstantPage;
 import com.example.domain.dto.HotArticleDto;
 import com.example.mapper.ArticleMapper;
 import com.example.domain.entity.Article;
@@ -30,8 +31,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         // 创建查询对象
         LambdaQueryWrapper<Article> lqw = new LambdaQueryWrapper<Article>();
         // 编写sql语句
-        lqw.eq(Article::getStatus, 0).orderByDesc(Article::getViewCount);
-        IPage page = new Page(1, 10);
+        lqw.eq(Article::getStatus, ArticleConstantPage.ARTICLE_IS_DRAFT).orderByDesc(Article::getViewCount);
+        IPage page = new Page(ArticleConstantPage.ARTICLE_PAGE_BEGIN, ArticleConstantPage.ARTICLE_PAGE_SIZE);
         // 执行sql语句
         page(page, lqw);
         List<Article> articleList = page.getRecords();
