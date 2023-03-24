@@ -25,15 +25,18 @@ public class ArticleController {
      */
     @Resource //按名称注入
     private ArticleService articleService;
+    public void setArticleService(ArticleService articleService) {
+        this.articleService = articleService;
+    }
 
     @RequestMapping("/all")
-    public List<Article> test(){
-        return articleService.list();
+    public ResponseResult<List<HotArticleDto>> test(){
+        return ResponseResult.okResult(articleService.list());
     }
 
     @RequestMapping("/hotArticleList")
-    public ResponseResult<HotArticleDto> hotArticleList(){
-        List<HotArticleDto> data = articleService.hotArticleList();
+    public ResponseResult<List<HotArticleDto>> hotArticleList(){
+        List<HotArticleDto> data =  articleService.hotArticleList();
         return ResponseResult.okResult(data);
     }
 }

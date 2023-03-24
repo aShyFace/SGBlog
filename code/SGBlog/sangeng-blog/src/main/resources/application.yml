@@ -16,10 +16,11 @@ spring:
     exclude:
       - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 
-
-
 mybatis-plus:
+#  需要使用mapper的话，就把下面这两行注释打开
+  mapper-locations: classpath*:/mapper/*.xml, classpath*:/com/example/mapper/*.xml
   configuration:
+    mapUnderscoreToCamelCase: true
     # 日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
@@ -28,3 +29,6 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
       id-type: auto
+
+#swagger:
+#  title:

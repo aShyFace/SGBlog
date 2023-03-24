@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.domain.dto.HotArticleDto;
 import com.example.domain.ResponseResult;
 import com.example.domain.entity.Article;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.List;
 
@@ -15,6 +16,6 @@ import java.util.List;
  */
 public interface ArticleService extends IService<Article> {
 
-    List hotArticleList();
+    List<HotArticleDto> hotArticleList();
 }
 

@@ -28,10 +28,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     /* 跟接口一样，如果返回值类型为ResponseResult，则代表该方法能返回ResponseResult<各种类型>；
     *       如果返回值类型为ResponseResult<XXX>，则该方法只能返回ResponseResult<XXX>。  */
     public List<HotArticleDto> hotArticleList() {
-        // 创建查询对象
+        // 创建MP的查询对象
         LambdaQueryWrapper<Article> lqw = new LambdaQueryWrapper<Article>();
         // 编写sql语句
         lqw.eq(Article::getStatus, ArticleConstantPage.ARTICLE_IS_DRAFT).orderByDesc(Article::getViewCount);
+        // 指定分页相关数据（也是在写sql）
         IPage page = new Page(ArticleConstantPage.ARTICLE_PAGE_BEGIN, ArticleConstantPage.ARTICLE_PAGE_SIZE);
         // 执行sql语句
         page(page, lqw);
