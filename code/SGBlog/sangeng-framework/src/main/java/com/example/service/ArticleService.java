@@ -1,9 +1,12 @@
 package com.example.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.common.PageParams;
+import com.example.common.PageResult;
 import com.example.domain.dto.HotArticleDto;
 import com.example.domain.ResponseResult;
 import com.example.domain.entity.Article;
+import com.example.domain.vo.ArticleVo;
 import org.apache.poi.ss.formula.functions.T;
 
 import java.util.List;
@@ -17,5 +20,7 @@ import java.util.List;
 public interface ArticleService extends IService<Article> {
 
     List<HotArticleDto> hotArticleList();
+
+    PageResult<ArticleVo> articleList(PageParams pageParams, Long categoryId);
 }
 

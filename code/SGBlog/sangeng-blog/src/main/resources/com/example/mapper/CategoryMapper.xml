@@ -16,7 +16,10 @@
     </resultMap>
 
     <select id="getCategoryList" resultType="com.example.domain.entity.Category">
-        select * from sg_category where id in (select distinct category_id from sg_article where status='0');
+-- status='0'表示已发表的文章；为1表示文章只是草稿，还在编辑中
+        select * from sg_category where
+                id in (select distinct category_id from sg_article where status='0' and del_flag=0)
+                and del_flag=0;
     </select>
 
 </mapper>

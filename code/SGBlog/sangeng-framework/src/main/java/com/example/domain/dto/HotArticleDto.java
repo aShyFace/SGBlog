@@ -16,4 +16,6 @@ public class HotArticleDto {
     private String title;
 
     private String content;
+
+    private Long viewCount;
 }

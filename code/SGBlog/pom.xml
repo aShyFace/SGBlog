@@ -22,10 +22,10 @@
 
 <!--
 对于继承了该pom的子项目：
-    - dependencyManagement只是声明依赖，并不实现引入
-        1. 如果子项目想从父项目中继承某个依赖，就需要显示的声明（写了该依赖项，并且没有指定具体版本）需要用的依赖。否则子项目不会继承。
-        2. 如果子项目中指定了版本号，那么会使用子项目中指定的jar版本。
-    - dependencies为直接继承，即：子项目没指明版本的依赖，都会从父项目中继承
+    - 对于父项目中的dependencyManagement。dependencyManagement只是声明依赖，并不实现引入
+        1. 如果子项目想从父项目中继承某个依赖，就需要在自己的pom文件中声明该依赖（写了依赖项，但不指定具体版本）
+        2. 如果子项目的pom中指定了依赖的版本号，那么子项目就会引入指定的jar版本（和父项目的dependencyManagement没关系了）
+    - 对于父项目的dependencies。dependencies为直接继承，即：子项目没指明版本的依赖，都会从父项目中继承
 -->
     <dependencyManagement>
         <dependencies>
@@ -61,7 +61,7 @@
 <!--                <groupId>org.mybatis.spring.boot</groupId>-->
 <!--                <artifactId>mybatis-spring-boot-starter</artifactId>-->
 <!--                <version>1.3.2</version>-->
-<!--                &lt;!&ndash;原Mybatis中需排除下面2个依赖&ndash;&gt;-->
+<!--                &lt;!&ndash;原Mybatis中需排除下面2个依赖（MP会导入mybatis的一些包，为了不和这些已导入的包冲突，需要在mybatis依赖中把这些包排除）&ndash;&gt;-->
 <!--                <exclusions>-->
 <!--                    <exclusion>-->
 <!--                        <groupId>org.mybatis</groupId>-->
@@ -73,25 +73,25 @@
 <!--                    </exclusion>-->
 <!--                </exclusions>-->
 <!--            </dependency>-->
-<!--            &lt;!&ndash; 分页插件 &ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>com.github.pagehelper</groupId>-->
-<!--                <artifactId>pagehelper-spring-boot-starter</artifactId>-->
-<!--                <version>1.2.3</version>-->
-<!--                &lt;!&ndash;需排除下面包&ndash;&gt;-->
-<!--                <exclusions>-->
-<!--                    <exclusion>-->
-<!--                        <groupId>org.mybatis.spring.boot</groupId>-->
-<!--                        <artifactId>mybatis-spring-boot-starter</artifactId>-->
-<!--                    </exclusion>-->
-<!--                </exclusions>-->
-<!--            </dependency>-->
-<!--            &lt;!&ndash;引入autoconfigure&ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>org.mybatis.spring.boot</groupId>-->
-<!--                <artifactId>mybatis-spring-boot-autoconfigure</artifactId>-->
-<!--                <version>2.1.4</version>-->
-<!--            </dependency>-->
+            <!-- 分页插件 -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>1.4.2</version>
+                <!--需排除下面包-->
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.mybatis.spring.boot</groupId>
+                        <artifactId>mybatis-spring-boot-starter</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!--引入autoconfigure-->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
+                <version>2.2.0</version>
+            </dependency>
 
             <!--阿里云OSS-->
             <dependency>

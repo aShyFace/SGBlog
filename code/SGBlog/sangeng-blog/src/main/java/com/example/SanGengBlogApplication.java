@@ -14,6 +14,7 @@ import java.util.List;
 public class SanGengBlogApplication {
     public static void main(String[] args) {
         SpringApplication.run(SanGengBlogApplication.class, args);
+
 //        List<Integer> a = testGrammar();
 //        System.out.println(a);
     }
