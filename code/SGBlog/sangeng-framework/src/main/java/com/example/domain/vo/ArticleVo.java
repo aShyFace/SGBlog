@@ -31,7 +31,5 @@ public class ArticleVo {
 
     private Date createTime;
 
-    public ArticleVo returnSelf(){
-        return this;
-    }
+    private String content;
 }

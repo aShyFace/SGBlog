@@ -26,9 +26,6 @@ public class CategoryController {
      */
     @Resource
     private CategoryService categoryService;
-    public void setCategoryService(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 
     @GetMapping("getCategoryList")
     public ResponseResult<List<CategoryDto>> getCategoryList(){

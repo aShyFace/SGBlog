@@ -1,27 +1,23 @@
 package com.example.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.PageParams;
 import com.example.common.PageResult;
 import com.example.constant.ArticleConstantPage;
 import com.example.domain.dto.HotArticleDto;
-import com.example.domain.entity.Category;
 import com.example.domain.vo.ArticleVo;
 import com.example.mapper.ArticleMapper;
 import com.example.domain.entity.Article;
 import com.example.mapper.CategoryMapper;
 import com.example.service.ArticleService;
 import com.example.utils.BeanCopyUilts;
-import com.github.pagehelper.PageHelper;
-import org.springframework.beans.BeanUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -46,13 +42,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         LambdaQueryWrapper<Article> lqw = new LambdaQueryWrapper<>();
         lqw.eq(Article::getStatus, ArticleConstantPage.ARTICLE_IS_DRAFT);
         lqw.orderByDesc(Article::getViewCount);
-        Page<Article> page = new Page(ArticleConstantPage.Hot_ARTICLE_PAGE_BEGIN,ArticleConstantPage.Hot_ARTICLE_PAGE_BEGIN);
+        Page<Article> page = new Page(ArticleConstantPage.Hot_ARTICLE_PAGE_BEGIN,ArticleConstantPage.Hot_ARTICLE_PAGE_SIZE);
         page(page,lqw);
 
         List<Article> articleList = page.getRecords();
         List<HotArticleDto> hotArticleDtoList = BeanCopyUilts.copyBeanList(articleList, HotArticleDto.class);
         return hotArticleDtoList;
     }
+
 
     public PageResult<ArticleVo> articleList(PageParams pageParams, Long categoryId) {
 //        分页查询
@@ -73,9 +70,19 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         List<ArticleVo> articleVoList = BeanCopyUilts.copyBeanList(articleList, ArticleVo.class)
                                         .stream().map(articleVo -> {
                                             articleVo.setCategoryName(categoryName);
+                                            articleVo.setContent(" ");
                                             return articleVo;
                                         }).collect(Collectors.toList());
         PageResult<ArticleVo> pageResult = new PageResult<>(articleVoList, articleList.size(), pageParams.getPageNum(), pageParams.getPageSize());
         return pageResult;
     }
+
+
+    public ArticleVo getArticleById(Long articleId) {
+        ArticleVo articleVo = BeanCopyUilts.copyBean(articleMapper.selectById(articleId), ArticleVo.class);
+        articleVo.setCategoryName(categoryMapper.selectById(articleId).getName());
+        return articleVo;
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.example.enums;
 public enum AppHttpCodeEnum {
     // 成功
     SUCCESS(200,"操作成功"),
+//    CLIRNT_ERROR(404,"客户端错误"),
     // 登录
     NEED_LOGIN(401,"需要登录后操作"),
     NO_OPERATOR_AUTH(403,"无权限操作"),
