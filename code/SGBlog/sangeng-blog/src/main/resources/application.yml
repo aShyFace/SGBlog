@@ -11,10 +11,28 @@ spring:
     multipart:
       max-file-size: 2MB
       max-request-size: 5MB
-  autoconfigure:
-    #跳过security自动配置
-    exclude:
-      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+  redis:
+    host: 127.0.0.1
+    # Redis服务器端口,默认为6379.若有改动按改动后的来
+    port: 6379
+    #Redis服务器连接密码，默认为空，若有设置按设置的来
+    password: 1234
+    jedis:
+      pool:
+        # 连接池最大连接数，若为负数则表示没有任何限制
+        max-active: 8
+        # 连接池最大阻塞等待时间，若为负数则表示没有任何限制
+        max-wait: -1
+        # 连接池中的最大空闲连接
+        max-idle: 8
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+
 
 mybatis-plus:
 #  需要使用mapper的话，就把下面这两行注释打开

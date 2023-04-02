@@ -5,7 +5,7 @@ package com.example.controller;
 
 import com.example.domain.ResponseResult;
 import com.example.domain.vo.LinkVo;
-import com.example.entity.Link;
+import com.example.domain.entity.Link;
 import com.example.service.LinkService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

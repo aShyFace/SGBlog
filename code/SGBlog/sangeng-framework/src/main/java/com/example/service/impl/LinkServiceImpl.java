@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.constant.LinkConstant;
 import com.example.domain.vo.LinkVo;
 import com.example.mapper.LinkMapper;
-import com.example.entity.Link;
+import com.example.domain.entity.Link;
 import com.example.service.LinkService;
 import com.example.utils.BeanCopyUilts;
 import org.springframework.stereotype.Repository;

@@ -2,7 +2,7 @@ package com.example.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.domain.vo.LinkVo;
-import com.example.entity.Link;
+import com.example.domain.entity.Link;
 
 import java.util.List;
 
