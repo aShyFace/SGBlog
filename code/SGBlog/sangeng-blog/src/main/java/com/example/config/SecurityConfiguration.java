@@ -1,5 +1,6 @@
 package com.example.config;
 
+import com.example.filter.JwtAuthenticationTokenFilter;
 import com.example.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
 
@@ -31,10 +33,9 @@ import static org.springframework.transaction.TransactionDefinition.withDefaults
  */
 @Configuration
 @EnableWebSecurity
-//@EnableConfigurationProperties(AuthProperties.class)
 public class SecurityConfiguration {
-//    @Autowired
-//    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    @Autowired
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
     @Resource
     private UserDetailsService userDetailsService;
 
@@ -72,10 +73,10 @@ public class SecurityConfiguration {
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     // 登录接口在这里设置没用，得去webSecurityCustomizer设置
                     .and().authorizeRequests(authorize -> authorize
-                        .antMatchers("/link/getAllLink").authenticated()
-                        .anyRequest().permitAll()
+                        // .antMatchers("/link/getAllLink").authenticated()
+                        .anyRequest().authenticated()
                     )
-////                    .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                   .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
 //                     认证用户时用户信息加载配置，注入springAuthUserService
 //                    .userDetailsService(userDetailsService)
                     .logout().disable()
