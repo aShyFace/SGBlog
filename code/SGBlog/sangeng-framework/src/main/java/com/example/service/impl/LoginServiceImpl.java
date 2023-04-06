@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.constant.RedisConstant;
 import com.example.domain.ResponseResult;
 import com.example.domain.entity.LoginUser;
 import com.example.domain.vo.UserVo;
@@ -36,6 +37,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
     @Resource
     private RedisCache redisCache;
 
+
     public ResponseResult login(User user) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword());
 //        这里会调用 UserDetailsService.loadUserByUsername()，然后把方法的返回值给到DaoAuthenticationProvider
@@ -45,18 +47,23 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
             throw new RuntimeException("用户名或密码错误");
         }
 
-//     认证成功则利用UserDetails对象生成token
+        // 认证成功则利用UserDetails对象生成token
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         String id = loginUser.getUser().getId().toString();
         String token = JwtUtil.createJWT(id);
-//      同时把用户信息存入redis中，方便下次验证通过时使用
-        String[] key = {"bloglogin:", id};
-        redisCache.setCacheObject(String.join("", key), token);
-//        org.springframework.security.core.userdetails.User
-//        封装响应数据
+
+        // 然后把用户信息存入redis中，方便下次验证通过时使用
+        redisCache.setCacheObject(String.join("", new String[]{RedisConstant.USER_INFO_KEY, id}), loginUser);
+        // 封装响应数据
         Map dataMap = new HashMap<>();
         dataMap.put("token", token);
         dataMap.put("userInfo", BeanCopyUilts.copyBean(loginUser.getUser(), UserVo.class));
         return ResponseResult.okResult(dataMap);
+    }
+
+
+    public void logout(Long userId) {
+        String[] key = new String[]{RedisConstant.USER_INFO_KEY, userId.toString()};
+        redisCache.deleteObject(String.join("", key));
     }
 }

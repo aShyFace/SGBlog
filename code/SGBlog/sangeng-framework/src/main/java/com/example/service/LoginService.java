@@ -13,5 +13,7 @@ import com.example.domain.entity.User;
 public interface LoginService extends IService<User> {
 
     ResponseResult login(User user);
+
+    void logout(Long userId);
 }
 

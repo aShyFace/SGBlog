@@ -1,6 +1,8 @@
 package com.example.config;
 
 import com.example.filter.JwtAuthenticationTokenFilter;
+import com.example.handler.security.AccessDeniedHandlerImpl;
+import com.example.handler.security.AuthenticationEntryPointImpl;
 import com.example.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -38,6 +40,10 @@ public class SecurityConfiguration {
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
     @Resource
     private UserDetailsService userDetailsService;
+    @Resource
+    private AuthenticationEntryPointImpl authenticationEntryPoint;
+    @Resource
+    private AccessDeniedHandlerImpl accessDeniedHandler;
 
 
     /**
@@ -60,29 +66,34 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/login**");
-    }
+    // @Bean
+    // public WebSecurityCustomizer webSecurityCustomizer() {
+    //     return (web) -> web.ignoring().antMatchers("/login**");
+    // }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-                // // 设置 jwtAuthError 处理认证失败、鉴权失败
-                // .exceptionHandling().authenticationEntryPoint(jwtAuthError).accessDeniedHandler(jwtAuthError).and()
         return http
                     .csrf().disable()
-                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                    .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).accessDeniedHandler(accessDeniedHandler).and()
+                    .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                     // 登录接口在这里设置没用，得去webSecurityCustomizer设置
-                    .and().authorizeRequests(authorize -> authorize
-                        // .antMatchers("/link/getAllLink").authenticated()
-                        .anyRequest().authenticated()
+                    .authorizeRequests(authorize -> authorize
+                            .mvcMatchers("/login").anonymous()
+                            .mvcMatchers("/logout").authenticated()
+                            .antMatchers("/link/getAllLink").authenticated()
+                            .anyRequest().permitAll()
                     )
-                   .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
-//                     认证用户时用户信息加载配置，注入springAuthUserService
-//                    .userDetailsService(userDetailsService)
+                    // 认证用户时用户信息加载配置，注入springAuthUserService
+                    .userDetailsService(userDetailsService)
                     .logout().disable()
-                    .formLogin().loginPage("/login.html").loginProcessingUrl("/login").successForwardUrl("/end").failureUrl("/end")
-                    .and().build();
-
+                    // .formLogin().loginPage("/login.html").loginProcessingUrl("/login").successForwardUrl("/end").failureUrl("/end")
+                    // .and().build();
+                    .build();
     }
+
+
+
 
 }

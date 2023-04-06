@@ -1,6 +1,7 @@
 package com.example;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -15,7 +16,11 @@ import java.util.List;
 @MapperScan("com.example.mapper")
 public class SanGengBlogApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SanGengBlogApplication.class, args);
+       //这里的TestApplication 是当前工程的启动类名
+        SpringApplication springApplication = new SpringApplication(SanGengBlogApplication.class);
+        //关闭启动logo和启动日志的输出
+        springApplication.setBannerMode(Banner.Mode.OFF);
+        springApplication.run(args);
 
 //        List<Integer> a = testGrammar();
 //        System.out.println(a);

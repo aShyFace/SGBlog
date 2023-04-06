@@ -1,31 +1,30 @@
 <html>
-<head>
-<script type="text/javascript">
-function alertMsg()
-  {
-  // alert("Button 1 was clicked!")
-    var url = "http://localhost:7777/login";
-    var httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', url, true);
-    httpRequest.setRequestHeader("Content-type", "application/json");
-    var obj = {
-    "username": "sg",
-    "password": "1234"
-    };
+  <head>
+    <script type="text/javascript">
+      function alertMsg()
+        {
+        // alert("Button 1 was clicked!")
+          var url = "http://localhost:7777/login";
+          var httpRequest = new XMLHttpRequest();
+          httpRequest.open('POST', url, true);
+          httpRequest.setRequestHeader("Content-type", "application/json");
+          var obj = {
+          "username": "sg",
+          "password": "1234"
+          };
 
-    httpRequest.send(JSON.stringify(obj));
-  }
-</script>
-</head>
-<body>
-
-<form>
-<input type="button" id="button1" onclick="alertMsg()"
-value="Button 1" />
-</form>
-
-</body>
+          httpRequest.send(JSON.stringify(obj));
+        }
+    </script>
+  </head>
+  <body>
+    <form>
+      <input type="button" id="button1" onclick="alertMsg()" value="Button 1" />
+    </form>
+  </body>
 </html>
+
+
 
 <!--<!DOCTYPE html>-->
 <!--<html lang="en">-->
@@ -35,8 +34,24 @@ value="Button 1" />
 <!--    <meta name="description" content="">-->
 <!--    <meta name="author" content="">-->
 <!--    <title>Please sign in</title>-->
-<!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
-<!--    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>-->
+<!--&lt;!&ndash;    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">&ndash;&gt;-->
+<!--&lt;!&ndash;    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>&ndash;&gt;-->
+<!--    <script type="text/javascript">-->
+<!--        function alertMsg()-->
+<!--        {-->
+<!--            // alert("Button 1 was clicked!")-->
+<!--            var url = "http://localhost:7777/login";-->
+<!--            var httpRequest = new XMLHttpRequest();-->
+<!--            httpRequest.open('POST', url, true);-->
+<!--            httpRequest.setRequestHeader("Content-type", "application/json");-->
+<!--            var obj = {-->
+<!--                "username": "sg",-->
+<!--                "password": "1234"-->
+<!--            };-->
+
+<!--            httpRequest.send(JSON.stringify(obj));-->
+<!--        }-->
+<!--    </script>-->
 <!--  </head>-->
 <!--  <body>-->
 <!--     <div class="container">-->
@@ -50,8 +65,8 @@ value="Button 1" />
 <!--          <label for="password" class="sr-only">Password</label>-->
 <!--          <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>-->
 <!--        </p>-->
-<!--<input name="_csrf" type="hidden" value="c4111aa0-ac63-43ac-902b-1937bec6118a" />-->
-<!--        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>-->
+<!--        <input name="_csrf" type="hidden" value="c4111aa0-ac63-43ac-902b-1937bec6118a" />-->
+<!--        <button class="btn btn-lg btn-primary btn-block" type="button" onclick="alertMsg()">Sign in</button>-->
 <!--      </form>-->
 <!--</div>-->
 <!--</body></html>-->
