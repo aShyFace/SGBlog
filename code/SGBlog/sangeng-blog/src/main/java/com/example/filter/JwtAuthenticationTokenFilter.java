@@ -9,7 +9,9 @@ import com.example.utils.JwtUtil;
 import com.example.utils.RedisCache;
 import com.example.utils.WebUtils;
 import io.jsonwebtoken.Claims;
+import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,20 +42,28 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        // 0. 处理之前，先判断请求是否为OPTIONS
+        if (request.getMethod().equals(HttpMethod.OPTIONS.name())) {
+            // 响应状态设置为200
+            response.setStatus(HttpStatus.SC_OK);
+            // 响应头
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Methods", "*");
+            response.setHeader("Access-Control-Max-Age", "3600");
+            response.setHeader("Access-Control-Allow-Headers", "*");
+            // response.setHeader("Access-Control-Allow-Methods", "POST,OPTIONS,GET");
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.setCharacterEncoding("utf-8");
+
+            response.getWriter().print(JSON.toJSONString(ResponseResult.okResult(AppHttpCodeEnum.SUCCESS)));
+            return;
+            // ResponseResult result = ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);
+            // WebUtils.renderString(response, JSON.toJSONString(result));
+        }
+
         // 1.获取请求头中的token
         String token = request.getHeader("token");
         if(!StringUtils.hasText(token)){
-            // 处理预检请求
-            if ("/logout".equals(request.getServletPath())) {
-                ResponseResult result = ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);
-                response.setHeader("Access-Control-Allow-Origin", "*");
-                response.setHeader("Access-Control-Allow-Methods", "POST,OPTIONS,GET");
-                response.setHeader("Access-Control-Max-Age", "3600");
-                response.setHeader("Access-Control-Allow-Headers", "*");
-                response.setHeader("Access-Control-Allow-Credentials", "true");
-                // response.setHeader("Access-Control-Allow-Origin", "http://192.168.10.118:8070");
-                WebUtils.renderString(response, JSON.toJSONString(result));
-            }
             //说明该接口不需要登录 直接放行
             /*
             *   看这里：
