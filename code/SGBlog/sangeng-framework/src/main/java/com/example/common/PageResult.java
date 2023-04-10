@@ -29,4 +29,11 @@ public class PageResult<T> {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
     }
+
+    public PageResult(List<T> rows, long total, PageParams pageParams) {
+        this.rows = rows;
+        this.total = total;
+        this.pageNum = pageParams.getPageNum();
+        this.pageSize = pageParams.getPageSize();
+    }
 }

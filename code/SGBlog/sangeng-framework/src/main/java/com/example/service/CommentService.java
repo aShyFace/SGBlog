@@ -1,0 +1,21 @@
+package com.example.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.common.PageParams;
+import com.example.common.PageResult;
+import com.example.domain.entity.Comment;
+import com.example.domain.vo.CommentVo;
+
+import java.util.List;
+
+/**
+ * 评论表(Comment)表服务接口
+ *
+ * @author Zhi
+ * @since 2023-04-07 14:05:03
+ */
+public interface CommentService extends IService<Comment> {
+
+    PageResult<CommentVo> commentList(PageParams pageParams, Long articleId);
+}
+

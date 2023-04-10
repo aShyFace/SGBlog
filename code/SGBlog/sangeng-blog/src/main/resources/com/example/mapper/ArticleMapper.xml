@@ -20,9 +20,9 @@
         <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
     </resultMap>
 
-<!--    <select id="getArticleList" resultType="com.example.domain.vo">-->
-<!--        select * from ;-->
-<!--    </select>-->
+    <!--<select id="getArticleList" resultType="com.example.domain.vo.ArticleVo">-->
+    <!--    select * from sg_article;-->
+    <!--</select>-->
 
 </mapper>
 

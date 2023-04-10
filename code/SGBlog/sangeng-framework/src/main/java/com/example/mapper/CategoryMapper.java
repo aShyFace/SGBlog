@@ -14,6 +14,6 @@ import java.util.List;
  */
 @Mapper
 public interface CategoryMapper extends BaseMapper<Category> {
-    public List<Category> getCategoryList();
+    List<Category> getCategoryList();
 }
 
