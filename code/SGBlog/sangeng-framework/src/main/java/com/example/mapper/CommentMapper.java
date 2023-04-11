@@ -16,8 +16,8 @@ import java.util.List;
  */
 @Mapper
 public interface CommentMapper extends BaseMapper<Comment> {
-    List<CommentVo> getRootComment(@Param("articleId") Long articleId, @Param("root_flg") Long root_flg);
+    List<CommentVo> getRootComment(@Param("commentTpye") int commentTpye, @Param("articleId") Long articleId, @Param("root_flg") Long root_flg);
 
-    List<CommentVo> getSubComment(@Param("rootId") Long rootId);
+    List<CommentVo> getSubComment(@Param("commentTpye") int commentTpye, @Param("rootId") Long rootId);
 }
 

@@ -23,6 +23,7 @@ public class SanGengBlogApplication {
         springApplication.run(args);
 
 //        List<Integer> a = testGrammar();
+//        Long a=1L;
 //        System.out.println(a);
     }
 

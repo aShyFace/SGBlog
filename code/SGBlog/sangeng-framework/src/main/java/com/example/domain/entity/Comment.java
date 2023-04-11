@@ -2,6 +2,8 @@ package com.example.domain.entity;
 
 
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import org.springframework.stereotype.Repository;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -30,48 +32,47 @@ public class Comment {
     @ApiModelProperty(value="")
     private Long id;
 
-
-   @TableField(value="type")
+    @TableField(value="type")
     @ApiModelProperty(value="评论类型（0代表文章评论，1代表友链评论）")
     private String type;
     
-   @TableField(value="article_id")
+    @TableField(value="article_id")
     @ApiModelProperty(value="文章id")
     private Long articleId;
     
-   @TableField(value="root_id")
+    @TableField(value="root_id")
     @ApiModelProperty(value="根评论id")
     private Long rootId;
     
-   @TableField(value="content")
+    @TableField(value="content")
     @ApiModelProperty(value="评论内容")
     private String content;
     
-   @TableField(value="to_comment_user_id")
+    @TableField(value="to_comment_user_id")
     @ApiModelProperty(value="所回复的目标评论的userid")
     private Long toCommentUserId;
     
-   @TableField(value="to_comment_id")
+    @TableField(value="to_comment_id")
     @ApiModelProperty(value="回复目标评论id")
     private Long toCommentId;
     
-   @TableField(value="create_by")
-    @ApiModelProperty(value="")
+    @TableField(value="create_by", fill = FieldFill.INSERT)
+    @ApiModelProperty()
     private Long createBy;
     
-   @TableField(value="create_time")
+    @TableField(value="create_time", fill = FieldFill.INSERT)
     @ApiModelProperty(value="")
     private Date createTime;
     
-   @TableField(value="update_by")
+    @TableField(value="update_by", fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value="")
     private Long updateBy;
     
-   @TableField(value="update_time")
+    @TableField(value="update_time", fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value="")
     private Date updateTime;
     
-   @TableField(value="del_flag")
+    @TableField(value="del_flag")
     @ApiModelProperty(value="删除标志（0代表未删除，1代表已删除）")
     private Integer delFlag;
     

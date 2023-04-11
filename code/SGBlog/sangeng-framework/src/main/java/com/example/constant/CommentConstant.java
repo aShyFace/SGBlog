@@ -9,4 +9,24 @@ package com.example.constant;
  */
 public class CommentConstant {
     public static final Long COMMENT_IS_ROOT = -1L;
+
+    // 0表示该评论为文章评论；1表示为友链评论
+    public enum CommentType{
+        ARTICLE(0, "article"),
+        LINK(1, "link");
+        int typeId;
+        String type;
+
+        CommentType (int typeId, String type){
+            this.typeId = typeId;
+            this.type = type;
+        }
+
+        public int getTypeId() {
+            return typeId;
+        }
+        public String getType() {
+            return type;
+        }
+    }
 }

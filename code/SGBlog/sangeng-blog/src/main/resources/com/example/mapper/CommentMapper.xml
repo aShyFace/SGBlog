@@ -36,7 +36,10 @@
                 # 查询根评论
                 select *
                 from sg_comment
-                where article_id = #{articleId} and root_id = #{root_flg} and del_flag=0
+                where type=#{commentTpye} and root_id = #{root_flg} and del_flag=0
+                    <if test="articleId != null">
+                        and article_id = #{articleId}
+                    </if>
             )as comment1
         # 因为你使用的一些sql工具会在该sql语句上做拼接，在末尾加“；”的话会让拼接后的sql提前结束，导致框架报语法错误
         on sys_user.id=comment1.create_by and sys_user.del_flag=0
@@ -50,7 +53,7 @@
             # 根评论
             select *
             from sg_comment
-            where root_id=#{rootId} and del_flag=0
+            where type=#{commentTpye} and root_id=#{rootId} and del_flag=0
         )as comment1
         on sys_user.id=comment1.create_by and sys_user.del_flag=0
         order by create_time # desc

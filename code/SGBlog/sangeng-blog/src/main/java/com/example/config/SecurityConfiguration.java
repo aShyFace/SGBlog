@@ -82,8 +82,9 @@ public class SecurityConfiguration {
                     .authorizeRequests(authorize -> authorize
                             .mvcMatchers("/login").anonymous()
                             .mvcMatchers("/logout").authenticated()
-                            // 实际上，访问这个接口的时候前端不会携带token，所以这个接口只用来测试权限认证是否开启
-                            .mvcMatchers("/link/getAllLink").authenticated()
+                            .mvcMatchers("/comment**").authenticated()
+                            // // 实际上，访问这个接口的时候前端不会携带token，所以这个接口只用来测试权限认证是否开启
+                            // .mvcMatchers("/link/getAllLink").authenticated()
                             .anyRequest().permitAll()
                     )
                     // 认证用户时用户信息加载配置，注入springAuthUserService
