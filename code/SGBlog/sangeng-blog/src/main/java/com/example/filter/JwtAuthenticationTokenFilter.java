@@ -15,7 +15,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -47,6 +46,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             // 响应状态设置为200
             response.setStatus(HttpStatus.SC_OK);
             // 响应头
+            // response.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "*");
             response.setHeader("Access-Control-Max-Age", "3600");

@@ -28,7 +28,7 @@ import java.util.*;
  * @author Zhi
  * @since 2023-03-31 13:56:41
  */
-@Service
+@Service("loginService")
 public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements LoginService {
 //    @Lazy
     @Resource

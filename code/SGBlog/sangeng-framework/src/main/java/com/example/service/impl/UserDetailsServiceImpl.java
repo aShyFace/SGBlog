@@ -19,7 +19,7 @@ import java.util.Objects;
  * @author: Zhi
  * @date: 2023/3/31 下午2:41
  */
-@Service
+@Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 //public class UserDetailsServiceImpl {
     @Resource

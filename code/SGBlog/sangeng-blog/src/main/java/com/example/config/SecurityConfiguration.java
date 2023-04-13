@@ -3,19 +3,13 @@ package com.example.config;
 import com.example.filter.JwtAuthenticationTokenFilter;
 import com.example.handler.security.AccessDeniedHandlerImpl;
 import com.example.handler.security.AuthenticationEntryPointImpl;
-import com.example.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,8 +18,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
-
-import static org.springframework.transaction.TransactionDefinition.withDefaults;
 
 /**
  * @ClassName: SecurityConfiguration
@@ -80,9 +72,9 @@ public class SecurityConfiguration {
                     .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                     // 登录接口在这里设置没用，得去webSecurityCustomizer设置
                     .authorizeRequests(authorize -> authorize
+                            .mvcMatchers("/upload").anonymous()
                             .mvcMatchers("/login").anonymous()
-                            .mvcMatchers("/logout").authenticated()
-                            .mvcMatchers("/comment**").authenticated()
+                            .mvcMatchers("/logout", "/user", "/comment**").authenticated()
                             // // 实际上，访问这个接口的时候前端不会携带token，所以这个接口只用来测试权限认证是否开启
                             // .mvcMatchers("/link/getAllLink").authenticated()
                             .anyRequest().permitAll()

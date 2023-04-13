@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="qiniu-java-sdk-7.9.5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../software/software-data/maven_resporty/com/qiniu/qiniu-java-sdk/7.9.5/qiniu-java-sdk-7.9.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

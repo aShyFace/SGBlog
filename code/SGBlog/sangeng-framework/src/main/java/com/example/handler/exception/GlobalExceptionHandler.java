@@ -22,13 +22,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(SystemException.class)
     public ResponseResult systemExceptionHandler(SystemException systemException){
-        log.error("controller中出现了异常！  {}", systemException);
+        log.error("controller出现异常！  ", systemException.getMsg());
         return ResponseResult.errorResult(systemException.getCode(), systemException.getMsg());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseResult systemExceptionHandler(Exception exception){
-        log.error("controller中出现了异常！  {}", exception);
+        log.error("controller出现异常！  ", exception.getMessage());
         return ResponseResult.errorResult(500, exception.getMessage());
     }
 }

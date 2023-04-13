@@ -26,6 +26,7 @@ spring:
         # 连接池中的最大空闲连接
         max-idle: 8
 
+
 logging:
   level:
     org:
@@ -50,6 +51,9 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
       id-type: auto
+
+
+
 pagehelper:
   # 数据库方言 mysql
   helper-dialect: mysql
@@ -70,6 +74,10 @@ pagehelper:
   params: countSql
 
 
+oss:
+  accessKey: "VYBGIK1EX2HIWc0Tegg6O62-tteLKvCjiBhtCJ_R"
+  secretKey: "UN4brnoWt46IRfhnKXKNQouuLzqoL74Pl7ZMBzx0"
+  bucket: "fz-blog"
 
 #swagger:
 #  title:
