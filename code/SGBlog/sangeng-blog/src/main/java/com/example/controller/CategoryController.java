@@ -7,6 +7,7 @@ import com.example.domain.ResponseResult;
 import com.example.domain.dto.CategoryDto;
 import com.example.domain.entity.Category;
 import com.example.service.CategoryService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -28,6 +29,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("getCategoryList")
+    @ApiOperation(value = "返回所有已发表文章的所属分类")
     public ResponseResult<List<CategoryDto>> getCategoryList(){
         List<CategoryDto> categoryDtoList = categoryService.getCategoryList();
         return ResponseResult.okResult(categoryDtoList);

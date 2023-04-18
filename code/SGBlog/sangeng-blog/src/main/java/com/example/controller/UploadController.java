@@ -1,15 +1,16 @@
 package com.example.controller;
 
+import com.example.constant.UploadFileConstant;
 import com.example.domain.ResponseResult;
 import com.example.enums.AppHttpCodeEnum;
+import com.example.exception.SystemException;
 import com.example.service.impl.UploadServiceImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -24,11 +25,11 @@ public class UploadController {
     private UploadServiceImpl uploadService;
 
     @PostMapping("/upload")
-    public ResponseResult uploadFile(@RequestBody MultipartFile img){
-        if (Objects.isNull(img)){
-            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_IS_NULL);
-        }
-        String redictUrl = uploadService.uploadFile(img);
+    @ApiOperation(value="上传文件至静态资源服务器")
+    /* 与@Getmapping一样，方法的参数名要和from表单中的key一致，否则该参数的值为null。文件类型的数据，可以不用添加@Requestbody */
+    public ResponseResult uploadFile(@NotNull MultipartFile img){
+        MultipartFile file = img;
+        String redictUrl = uploadService.uploadFile(file);
         return ResponseResult.okResult(redictUrl);
     }
 }

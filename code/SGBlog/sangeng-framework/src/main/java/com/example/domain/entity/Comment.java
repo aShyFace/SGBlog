@@ -4,6 +4,8 @@ package com.example.domain.entity;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.example.handler.exception.ValidationGroups;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.stereotype.Repository;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -13,6 +15,10 @@ import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Null;
 
 /**
  * 评论表(Comment)表实体类
@@ -35,15 +41,15 @@ public class Comment {
     @TableField(value="type")
     @ApiModelProperty(value="评论类型（0代表文章评论，1代表友链评论）")
     private String type;
-    
+
     @TableField(value="article_id")
     @ApiModelProperty(value="文章id")
     private Long articleId;
-    
+
     @TableField(value="root_id")
     @ApiModelProperty(value="根评论id")
     private Long rootId;
-    
+
     @TableField(value="content")
     @ApiModelProperty(value="评论内容")
     private String content;
@@ -56,20 +62,20 @@ public class Comment {
     @ApiModelProperty(value="回复目标评论id")
     private Long toCommentId;
     
-    @TableField(value="create_by", fill = FieldFill.INSERT)
     @ApiModelProperty()
+    @TableField(value="create_by", fill = FieldFill.INSERT)
     private Long createBy;
     
-    @TableField(value="create_time", fill = FieldFill.INSERT)
     @ApiModelProperty(value="")
+    @TableField(value="create_time", fill = FieldFill.INSERT)
     private Date createTime;
     
-    @TableField(value="update_by", fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value="")
+    @TableField(value="update_by", fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
     
-    @TableField(value="update_time", fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value="")
+    @TableField(value="update_time", fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
     
     @TableField(value="del_flag")

@@ -8,13 +8,17 @@ import com.example.domain.dto.HotArticleDto;
 import com.example.domain.ResponseResult;
 import com.example.domain.entity.Article;
 import com.example.domain.vo.ArticleVo;
+import com.example.handler.exception.ValidationGroups;
 import com.example.service.ArticleService;
 import com.example.utils.BeanCopyUilts;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -48,20 +52,16 @@ public class ArticleController {
 
     @GetMapping("articleList")
     @ApiOperation(value = "根据文章类别返回对应的文章，需要设置分页参数", notes = "参数为 pageNum，pageSize，categoryId")
-    public ResponseResult<List<ArticleVo>> articleList(PageParams pageParams, Long categoryId){
+    public ResponseResult<List<ArticleVo>> articleList(@Validated(value = ValidationGroups.PageParams.class) PageParams pageParams, Long categoryId){
         PageResult<ArticleVo> pageArticle = articleService.articleList(pageParams, categoryId);
         return ResponseResult.okResult(pageArticle);
     }
 
     @GetMapping("{articleId}")
     @ApiOperation(value = "根据传入的articleId返回对应文章")
-    public ResponseResult<ArticleVo> getArticleById(@PathVariable(value = "articleId") Long articleId){
-        if (articleId > 0){
-            ArticleVo articleVo = articleService.getArticleById(articleId);
-            return ResponseResult.okResult(articleVo);
-        }else{
-            return ResponseResult.errorResult(404, "请求url出错");
-        }
+    public ResponseResult<ArticleVo> getArticleById(@Validated(value = ValidationGroups.ArticleQuery.class) @PathVariable(value = "articleId") Long articleId){
+        ArticleVo articleVo = articleService.getArticleById(articleId);
+        return ResponseResult.okResult(articleVo);
     }
 }
 

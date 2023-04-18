@@ -38,13 +38,13 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
     private RedisCache redisCache;
 
 
-    public ResponseResult login(User user) {
+    public HashMap login(User user) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword());
 //        这里会调用 UserDetailsService.loadUserByUsername()，然后把方法的返回值给到DaoAuthenticationProvider
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
 //        返回认证结果（实现了UserDetails的类对象）
         if ( Objects.isNull(authenticate)){
-            throw new RuntimeException("用户名或密码错误");
+            throw new RuntimeException("LoginServiceImpl::login 用户名或密码错误");
         }
 
         // 认证成功则利用UserDetails对象生成token
@@ -55,10 +55,10 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
         // 然后把用户信息存入redis中，方便下次验证通过时使用
         redisCache.setCacheObject(String.join("", new String[]{RedisConstant.USER_INFO_KEY, id}), loginUser);
         // 封装响应数据
-        Map dataMap = new HashMap<>();
+        HashMap dataMap = new HashMap<>();
         dataMap.put("token", token);
         dataMap.put("userInfo", BeanCopyUilts.copyBean(loginUser.getUser(), UserVo.class));
-        return ResponseResult.okResult(dataMap);
+        return dataMap;
     }
 
 

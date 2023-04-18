@@ -20,6 +20,10 @@ public class SecurityUtils
         return (LoginUser) getAuthentication().getPrincipal();
     }
 
+    // public static void setAuthentication(Authentication authentication){
+    //     SecurityContextHolder.getContext().setAuthentication(authentication);
+    // }
+
     /**
      * 获取Authentication
      */

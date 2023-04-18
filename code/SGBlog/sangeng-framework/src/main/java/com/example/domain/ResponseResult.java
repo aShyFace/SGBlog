@@ -5,7 +5,7 @@ import com.example.enums.AppHttpCodeEnum;
 
 import java.io.Serializable;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL) // 如果某个字段为null，就不返回该字段
 public class ResponseResult<T> implements Serializable {
     private Integer code;
     private String msg;

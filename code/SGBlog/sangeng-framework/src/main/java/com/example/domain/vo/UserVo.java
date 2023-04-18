@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * 用户表(User)表实体类
  *
@@ -21,8 +23,8 @@ import lombok.Data;
 @SuppressWarnings(value={"serial", "unused"})
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Repository
+@Data
 public class UserVo {
     private String userName;
 

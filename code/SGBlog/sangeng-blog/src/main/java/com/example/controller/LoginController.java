@@ -2,15 +2,23 @@ package com.example.controller;
 
 import com.example.domain.ResponseResult;
 import com.example.domain.entity.User;
+import com.example.domain.vo.UserAuthVo;
 import com.example.enums.AppHttpCodeEnum;
 import com.example.exception.SystemException;
+import com.example.handler.exception.ValidationGroups;
 import com.example.service.LoginService;
+import com.example.utils.BeanCopyUilts;
 import com.example.utils.SecurityUtils;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
 * @ClassName: LoginController
@@ -24,11 +32,9 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/login")
-    public ResponseResult login(@RequestBody User user) throws Exception {
-        if (! StringUtils.hasText(user.getUserName())){
-            throw new SystemException(AppHttpCodeEnum.REQUIRE_USERNAME);
-        }
-        return loginService.login(user);
+    public ResponseResult login(@Validated(value = ValidationGroups.UserLoginPassword.class) @RequestBody UserAuthVo userAuthVo) throws Exception {
+        HashMap dataMap = loginService.login(BeanCopyUilts.copyBean(userAuthVo, User.class));
+        return ResponseResult.okResult(dataMap);
     }
 
     @PostMapping("/logout")
@@ -43,9 +49,4 @@ public class LoginController {
     }
 
 
-    @GetMapping("/end")
-    public ResponseResult login1() {
-        System.out.println(String.join("\n", "|||||||||||||", "响应处理结束", "|||||||||||||"));
-        return null;
-    }
 }

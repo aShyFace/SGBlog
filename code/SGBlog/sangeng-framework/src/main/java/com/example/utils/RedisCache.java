@@ -25,6 +25,7 @@ public class RedisCache
      */
     public <T> void setCacheObject(final String key, final T value)
     {
+        // 没有key-value则新增，有则覆盖
         redisTemplate.opsForValue().set(key, value);
     }
 

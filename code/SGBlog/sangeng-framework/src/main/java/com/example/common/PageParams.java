@@ -1,9 +1,12 @@
 package com.example.common;
 
+import com.example.handler.exception.ValidationGroups;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import javax.validation.constraints.NotNull;
+
 
 /**
  * @ClassName: PageParams
@@ -16,6 +19,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PageParams {
+    @NotNull(message = "分页参数不能为空", groups = {ValidationGroups.PageParams.class})
     private Long pageNum = 1L;
+    @NotNull(message = "分页参数不能为空", groups = {ValidationGroups.PageParams.class})
     private Long pageSize = 10L;
 }

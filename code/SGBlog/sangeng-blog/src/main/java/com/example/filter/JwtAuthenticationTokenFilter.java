@@ -46,7 +46,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             // 响应状态设置为200
             response.setStatus(HttpStatus.SC_OK);
             // 响应头
-            // response.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
+            // response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "*");
             response.setHeader("Access-Control-Max-Age", "3600");
@@ -102,11 +102,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         // 4.用户存在,则把查询出的UserDetail对象存入SecurityContextHolder
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,null); //三个参数的方法代表该用户已认证
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        // if (Objects.isNull(securityContext)){
-        //     SecurityContextHolder.setContext(new SecurityContextImpl());
-        // }
-        securityContext.setAuthentication(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        // SecurityContextHolder.getContext()为空 不代表SecurityContextHolder不能调用getContext().setAuthentication()
         filterChain.doFilter(request, response);
     }
 
