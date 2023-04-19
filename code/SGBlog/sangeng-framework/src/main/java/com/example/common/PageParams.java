@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class PageParams {
     @NotNull(message = "分页参数不能为空", groups = {ValidationGroups.PageParams.class})
-    private Long pageNum = 1L;
+    private Long pageNum;
     @NotNull(message = "分页参数不能为空", groups = {ValidationGroups.PageParams.class})
-    private Long pageSize = 10L;
+    private Long pageSize;
 }

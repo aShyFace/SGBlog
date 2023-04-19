@@ -8,6 +8,8 @@ import com.example.domain.dto.CategoryDto;
 import com.example.domain.entity.Category;
 import com.example.service.CategoryService;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,6 +21,8 @@ import java.util.List;
  * @author Zhi
  * @since 2023-03-23 15:15:14
  */
+@Slf4j
+@Validated
 @RestController
 @RequestMapping("category")
 public class CategoryController {

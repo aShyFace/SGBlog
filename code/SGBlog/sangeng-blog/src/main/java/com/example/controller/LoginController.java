@@ -3,22 +3,18 @@ package com.example.controller;
 import com.example.domain.ResponseResult;
 import com.example.domain.entity.User;
 import com.example.domain.vo.UserAuthVo;
-import com.example.enums.AppHttpCodeEnum;
-import com.example.exception.SystemException;
 import com.example.handler.exception.ValidationGroups;
 import com.example.service.LoginService;
 import com.example.utils.BeanCopyUilts;
 import com.example.utils.SecurityUtils;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
 * @ClassName: LoginController
@@ -26,6 +22,8 @@ import java.util.Map;
 * @author: Zhi
 * @date: 2023/3/30 下午2:38
 */
+@Slf4j
+@Validated
 @RestController
 public class LoginController {
     @Resource

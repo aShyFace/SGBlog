@@ -1,8 +1,6 @@
 package com.example.controller;
 
 
-
-
 import com.example.common.PageParams;
 import com.example.common.PageResult;
 import com.example.constant.CommentConstant;
@@ -10,17 +8,15 @@ import com.example.domain.ResponseResult;
 import com.example.domain.entity.Comment;
 import com.example.domain.vo.CommentVo;
 import com.example.enums.AppHttpCodeEnum;
-import com.example.exception.SystemException;
 import com.example.handler.exception.ValidationGroups;
 import com.example.service.CommentService;
 import com.example.utils.BeanCopyUilts;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 
 /**
  * 评论表(Comment)表控制层
@@ -28,6 +24,8 @@ import javax.validation.Valid;
  * @author Zhi
  * @since 2023-04-07 14:06:14
  */
+@Slf4j
+@Validated
 @RestController
 @RequestMapping("comment")
 public class CommentController {

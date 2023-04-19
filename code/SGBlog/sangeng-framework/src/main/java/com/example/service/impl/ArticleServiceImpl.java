@@ -54,12 +54,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public PageResult<ArticleVo> articleList(PageParams pageParams, Long categoryId) {
 //        分页查询
         LambdaQueryWrapper<Article> lqw = new LambdaQueryWrapper<>();
-        if (Objects.nonNull(categoryId) && categoryId > 0){
-            lqw.eq(Article::getCategoryId, categoryId);
-        }else{
-            System.out.println("categoryId值非法");
-            return null;
-        }
         lqw.eq(Article::getStatus, ArticleConstantPage.ARTICLE_IS_DRAFT).orderByDesc(Article::getIsTop);
         Page<Article> page = new Page(pageParams.getPageNum(), pageParams.getPageSize());
         page(page, lqw);

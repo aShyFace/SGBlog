@@ -14,6 +14,7 @@ import com.example.service.UserService;
 import com.example.utils.BeanCopyUilts;
 import com.example.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,8 @@ import java.util.Objects;
  * @author Zhi
  * @since 2023-04-11 11:22:58
  */
+@Slf4j
+@Validated
 @RestController
 @RequestMapping("user")
 public class UserController {

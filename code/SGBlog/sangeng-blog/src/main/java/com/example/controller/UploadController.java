@@ -6,6 +6,8 @@ import com.example.enums.AppHttpCodeEnum;
 import com.example.exception.SystemException;
 import com.example.service.impl.UploadServiceImpl;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +21,8 @@ import java.util.Objects;
  * @author: Zhi
  * @date: 2023/4/13 下午2:46
  */
+@Slf4j
+@Validated
 @RestController
 public class UploadController {
     @Resource

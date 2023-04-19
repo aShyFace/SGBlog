@@ -8,6 +8,8 @@ import com.example.domain.vo.LinkVo;
 import com.example.domain.entity.Link;
 import com.example.service.LinkService;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,6 +22,8 @@ import java.util.List;
  * @author Zhi
  * @since 2023-03-29 20:47:10
  */
+@Slf4j
+@Validated
 @RestController
 @RequestMapping("link")
 public class LinkController {

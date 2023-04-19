@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
     // 自定义的ResponseResult中添加了JsonInclude注解，它会自动把返回值封装成json。所以这里不需要添加ReponseBody注解
     @ExceptionHandler(SystemException.class)
     public ResponseResult systemExceptionHandler(SystemException systemException){
-        log.error("|||||||||||||||\n捕获SystemException异常!!!\n|||||||||||||||\n" + systemException.getMsg());
+        log.error("\n|||||||||||||||\n捕获SystemException异常!!!\n{}\n|||||||||||||||\n", systemException.getMsg());
         return ResponseResult.errorResult(systemException.getCode(), systemException.getMsg());
     }
 
@@ -42,14 +42,20 @@ public class GlobalExceptionHandler {
         });
 
         String error = String.join("; \n", errorList);
-        log.error("|||||||||||||||\n参数异常!!!\n|||||||||||||||\n" + error);
+        log.error("\n|||||||||||||||\n引用类型 参数异常!!!\n{}\n|||||||||||||||\n", error);
         return ResponseResult.errorResult(400, error);
     }
+
+    // @ExceptionHandler(IllegalArgumentException.class)
+    // public ResponseResult IllegalArgumentExceptionHandler(IllegalArgumentException e){
+    //     log.error("\n|||||||||||||||\n基本类型 参数异常!!!\n{}\n|||||||||||||||\n", e.getMessage());
+    //     return ResponseResult.errorResult(400, e.getMessage());
+    // }
 
 
     @ExceptionHandler(Exception.class)
     public ResponseResult systemExceptionHandler(Exception e){
-        log.error("|||||||||||||||\n捕获Exception异常!!!\n|||||||||||||||\n" + e.getMessage());
+        log.error("\n|||||||||||||||\n捕获Exception异常!!!\n{}\n|||||||||||||||\n", e.getMessage());
         return ResponseResult.errorResult(500, e.getMessage());
     }
 }
