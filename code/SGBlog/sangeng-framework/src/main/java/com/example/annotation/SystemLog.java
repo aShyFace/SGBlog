@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
  */
 // 这两个都是元注解——这些注解只提供了一些基本功能，具体实现由代码控制。我们可以通过它来实现自定义注解
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target(ElementType.TYPE)
 public @interface SystemLog {
 
 

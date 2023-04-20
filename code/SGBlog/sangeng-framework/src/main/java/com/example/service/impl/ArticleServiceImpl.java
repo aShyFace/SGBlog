@@ -7,6 +7,7 @@ import com.example.common.PageParams;
 import com.example.common.PageResult;
 import com.example.constant.ArticleConstantPage;
 import com.example.domain.dto.HotArticleDto;
+import com.example.domain.entity.Category;
 import com.example.domain.vo.ArticleVo;
 import com.example.mapper.ArticleMapper;
 import com.example.domain.entity.Article;
@@ -15,6 +16,7 @@ import com.example.service.ArticleService;
 import com.example.utils.BeanCopyUilts;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
  * @author Zhi
  * @since 2023-02-20 23:02:26
  */
+@Slf4j
 @Service("articleService")
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
     @Resource
@@ -74,7 +77,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     public ArticleVo getArticleById(Long articleId) {
         ArticleVo articleVo = BeanCopyUilts.copyBean(articleMapper.selectById(articleId), ArticleVo.class);
-        articleVo.setCategoryName(categoryMapper.selectById(articleId).getName());
+        if (log.isDebugEnabled()){
+            log.debug("getArticleById::{}", articleVo.toString());
+        }
+        Category category = categoryMapper.selectById(articleId);
+        if (Objects.nonNull(category)){
+            articleVo.setCategoryName(category.getName());
+        }
         return articleVo;
     }
 

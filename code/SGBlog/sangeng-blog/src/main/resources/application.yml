@@ -26,7 +26,6 @@ spring:
         # 连接池中的最大空闲连接
         max-idle: 8
 
-
 logging:
   level:
     org:

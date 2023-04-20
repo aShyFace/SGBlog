@@ -1,6 +1,7 @@
 package com.example.controller;
 
 
+import com.example.annotation.SystemLog;
 import com.example.common.PageParams;
 import com.example.common.PageResult;
 import com.example.domain.ResponseResult;
@@ -32,6 +33,7 @@ import java.util.List;
  * @since 2023-02-21 13:48:02
  */
 @Slf4j
+@SystemLog
 @Validated
 @RestController //告诉springMvc，别把controller的返回值当作modelView解析，而是把它写入响应体中
 @Api(tags = "文章相关接口")

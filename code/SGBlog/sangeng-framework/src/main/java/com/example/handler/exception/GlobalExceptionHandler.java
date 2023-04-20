@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 
 /**
@@ -46,16 +47,16 @@ public class GlobalExceptionHandler {
         return ResponseResult.errorResult(400, error);
     }
 
-    // @ExceptionHandler(IllegalArgumentException.class)
-    // public ResponseResult IllegalArgumentExceptionHandler(IllegalArgumentException e){
-    //     log.error("\n|||||||||||||||\n基本类型 参数异常!!!\n{}\n|||||||||||||||\n", e.getMessage());
-    //     return ResponseResult.errorResult(400, e.getMessage());
-    // }
-
-
-    @ExceptionHandler(Exception.class)
-    public ResponseResult systemExceptionHandler(Exception e){
-        log.error("\n|||||||||||||||\n捕获Exception异常!!!\n{}\n|||||||||||||||\n", e.getMessage());
-        return ResponseResult.errorResult(500, e.getMessage());
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseResult ConstraintViolationExceptionHandler(ConstraintViolationException e){
+        log.error("\n|||||||||||||||\n基本类型 参数异常!!!\n{}\n|||||||||||||||\n", e.getMessage());
+        return ResponseResult.errorResult(400, e.getMessage());
     }
+
+
+    // @ExceptionHandler(Exception.class)
+    // public ResponseResult systemExceptionHandler(Exception e){
+    //     log.error("\n|||||||||||||||\n捕获Exception异常!!!\n{}\n|||||||||||||||\n", e.getMessage());
+    //     return ResponseResult.errorResult(500, e.getMessage());
+    // }
 }
