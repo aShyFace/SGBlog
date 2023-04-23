@@ -4,13 +4,16 @@ package com.example.controller;
 import com.example.common.PageParams;
 import com.example.common.PageResult;
 import com.example.constant.CommentConstant;
+import com.example.constant.MethodConstant;
 import com.example.domain.ResponseResult;
+import com.example.domain.dto.AddCommentDto;
 import com.example.domain.entity.Comment;
 import com.example.domain.vo.CommentVo;
 import com.example.enums.AppHttpCodeEnum;
 import com.example.handler.exception.ValidationGroups;
 import com.example.service.CommentService;
 import com.example.utils.BeanCopyUilts;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -27,6 +30,7 @@ import javax.annotation.Resource;
 @Slf4j
 @Validated
 @RestController
+@Api(tags = "评论相关接口")
 @RequestMapping("comment")
 public class CommentController {
     /**
@@ -46,9 +50,9 @@ public class CommentController {
 
     @PostMapping
     @ApiOperation(value = "添加评论")
-    public ResponseResult addComment(@Validated(value = ValidationGroups.CommentInsert.class) @RequestBody CommentVo commentVo){
-        boolean success = commentService.addComment(BeanCopyUilts.copyBean(commentVo, Comment.class));
-        if (success) {
+    public ResponseResult addComment(@Validated(value = ValidationGroups.CommentInsert.class) @RequestBody AddCommentDto addCommentDto){
+        int ret = commentService.addComment(BeanCopyUilts.copyBean(addCommentDto, Comment.class));
+        if (MethodConstant.SUCCESS == ret) {
             return ResponseResult.okResult();
         }else{
             return ResponseResult.errorResult(AppHttpCodeEnum.INSTER_ERROR);

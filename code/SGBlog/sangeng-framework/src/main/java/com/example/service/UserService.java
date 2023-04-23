@@ -2,8 +2,8 @@ package com.example.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.domain.entity.User;
-import com.example.domain.vo.UserAuthVo;
-import com.example.domain.vo.UserVo;
+import com.example.domain.dto.UserAuthDto;
+import com.example.domain.dto.UserInfoDto;
 
 /**
  * 用户表(User)表服务接口
@@ -13,8 +13,8 @@ import com.example.domain.vo.UserVo;
  */
 public interface UserService extends IService<User> {
 
-    User updateUserInfo(UserVo userVo);
+    User updateUserInfo(UserInfoDto userInfoDto);
 
-    boolean register(UserAuthVo userAuthVo);
+    boolean register(UserAuthDto userAuthDto);
 }
 

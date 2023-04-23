@@ -1,7 +1,7 @@
 package com.example.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.domain.dto.CategoryDto;
+import com.example.domain.vo.CategoryVo;
 import com.example.domain.entity.Category;
 
 import java.util.List;
@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface CategoryService extends IService<Category> {
 
-    List<CategoryDto> getCategoryList();
+    List<CategoryVo> getCategoryList();
 }
 

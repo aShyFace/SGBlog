@@ -1,6 +1,10 @@
 package com.example.constant;
 
-public class ArticleConstantPage {
+public class ArticleConstant {
+    /**
+     *  redis中浏览量的key
+     */
+    public static final String ARTICLE_VIEWCOUNT_KEY = "article:viewCount";
     /**
      *  文章是草稿
      */

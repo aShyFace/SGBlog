@@ -4,9 +4,9 @@ package com.example.controller;
 
 
 import com.example.domain.ResponseResult;
-import com.example.domain.dto.CategoryDto;
-import com.example.domain.entity.Category;
+import com.example.domain.vo.CategoryVo;
 import com.example.service.CategoryService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -24,6 +24,7 @@ import java.util.List;
 @Slf4j
 @Validated
 @RestController
+@Api(tags = "文章类别相关接口")
 @RequestMapping("category")
 public class CategoryController {
     /**
@@ -34,9 +35,9 @@ public class CategoryController {
 
     @GetMapping("getCategoryList")
     @ApiOperation(value = "返回所有已发表文章的所属分类")
-    public ResponseResult<List<CategoryDto>> getCategoryList(){
-        List<CategoryDto> categoryDtoList = categoryService.getCategoryList();
-        return ResponseResult.okResult(categoryDtoList);
+    public ResponseResult<List<CategoryVo>> getCategoryList(){
+        List<CategoryVo> categoryVoList = categoryService.getCategoryList();
+        return ResponseResult.okResult(categoryVoList);
     }
 
 }

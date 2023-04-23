@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.PageParams;
 import com.example.common.PageResult;
 import com.example.constant.CommentConstant;
+import com.example.constant.MethodConstant;
 import com.example.domain.vo.CommentVo;
 import com.example.mapper.CommentMapper;
 import com.example.domain.entity.Comment;
@@ -58,9 +59,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
 
-    public boolean addComment(Comment comment) {
+    public int addComment(Comment comment) {
         // MyMetaObjectHandler中会自动填充 id(token中获取),time等信息
-        boolean success = save(comment);
-        return success;
+        int ret = save(comment)? MethodConstant.SUCCESS:MethodConstant.ERROR;
+        return ret;
     }
 }

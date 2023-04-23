@@ -1,31 +1,20 @@
 package com.example;
 
-import cn.hutool.core.io.FileUtil;
-import com.google.gson.Gson;
-import com.qiniu.common.QiniuException;
-import com.qiniu.storage.Region;
-import com.qiniu.storage.UploadManager;
-import com.qiniu.storage.model.DefaultPutRet;
-import com.qiniu.util.Auth;
-import com.qiniu.storage.Configuration;
-import com.qiniu.http.Response;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.codec.EncodingException;
-import org.springframework.util.StringUtils;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 @EnableSwagger2
+@EnableScheduling
 @SpringBootApplication
 @MapperScan("com.example.mapper")
 public class SanGengBlogApplication {
@@ -34,7 +23,8 @@ public class SanGengBlogApplication {
         SpringApplication springApplication = new SpringApplication(SanGengBlogApplication.class);
         //关闭启动logo和启动日志的输出
         springApplication.setBannerMode(Banner.Mode.OFF);
-        springApplication.run(args);
+        ConfigurableApplicationContext run = springApplication.run(args);
+
 
 //        List<Integer> a = testGrammar();
 //         qiniu();

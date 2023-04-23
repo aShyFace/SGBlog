@@ -2,17 +2,14 @@ package com.example.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.constant.RedisConstant;
-import com.example.domain.ResponseResult;
 import com.example.domain.entity.LoginUser;
-import com.example.domain.vo.UserVo;
+import com.example.domain.dto.UserInfoDto;
 import com.example.mapper.UserMapper;
 import com.example.domain.entity.User;
 import com.example.service.LoginService;
 import com.example.utils.BeanCopyUilts;
 import com.example.utils.JwtUtil;
 import com.example.utils.RedisCache;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -57,7 +54,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
         // 封装响应数据
         HashMap dataMap = new HashMap<>();
         dataMap.put("token", token);
-        dataMap.put("userInfo", BeanCopyUilts.copyBean(loginUser.getUser(), UserVo.class));
+        dataMap.put("userInfo", BeanCopyUilts.copyBean(loginUser.getUser(), UserInfoDto.class));
         return dataMap;
     }
 

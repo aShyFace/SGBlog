@@ -17,6 +17,6 @@ public interface CommentService extends IService<Comment> {
     // 之后的业务可能会有多种类型的评论，为了兼容这种场景，只使用articleId作为判断条件是不可取的
     PageResult<CommentVo> commentList(CommentConstant.CommentType commentType, PageParams pageParams, Long articleId);
 
-    boolean addComment(Comment comment);
+    int addComment(Comment comment);
 }
 

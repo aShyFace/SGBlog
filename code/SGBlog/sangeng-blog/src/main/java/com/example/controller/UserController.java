@@ -1,18 +1,17 @@
 package com.example.controller;
 
 
-
-
 import com.example.domain.ResponseResult;
+import com.example.domain.dto.UserAuthDto;
+import com.example.domain.dto.UserInfoDto;
 import com.example.domain.entity.User;
-import com.example.domain.vo.UserAuthVo;
-import com.example.domain.vo.UserVo;
+import com.example.domain.vo.UserInfoVo;
 import com.example.enums.AppHttpCodeEnum;
 import com.example.handler.exception.ValidationGroups;
-import com.example.service.LoginService;
 import com.example.service.UserService;
 import com.example.utils.BeanCopyUilts;
 import com.example.utils.SecurityUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -20,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -33,6 +30,7 @@ import java.util.Objects;
 @Slf4j
 @Validated
 @RestController
+@Api(tags = "用户相关接口")
 @RequestMapping("user")
 public class UserController {
     /**
@@ -40,15 +38,13 @@ public class UserController {
      */
     @Resource
     private UserService userService;
-    @Resource
-    private LoginService loginService;
 
     @GetMapping("/userInfo")
     @ApiOperation(value = "查看用户信息")
     public ResponseResult userInfo(){
         User user = SecurityUtils.getLoginUser().getUser();
         if (Objects.nonNull(user)){
-            return ResponseResult.okResult(BeanCopyUilts.copyBean(user, UserVo.class));
+            return ResponseResult.okResult(BeanCopyUilts.copyBean(user, UserInfoVo.class));
         }
         return ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);
     }
@@ -59,16 +55,16 @@ public class UserController {
     */
     @PutMapping("/userInfo")
     @ApiOperation(value = "更新用户信息")
-    public ResponseResult updateUserInfo(@NotNull @RequestBody UserVo userVo){
+    public ResponseResult updateUserInfo(@NotNull @RequestBody UserInfoDto userInfoDto){
         // 此时的用户信息有三份。security，数据库，redis。更新用户信息的时候，理论上这三个地方的数据都要修改
-        userService.updateUserInfo(userVo);
+        userService.updateUserInfo(userInfoDto);
         return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
     }
 
     @PostMapping("/register")
     @ApiOperation(value = "用户注册")
-    public ResponseResult register(@Validated(value = ValidationGroups.UserInsert.class) @RequestBody UserAuthVo userAuthVo){
-        if (userService.register(userAuthVo)){
+    public ResponseResult register(@Validated(value = ValidationGroups.UserInsert.class) @RequestBody UserAuthDto userAuthDto){
+        if (userService.register(userAuthDto)){
             return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
         }
         return ResponseResult.errorResult(AppHttpCodeEnum.INSTER_ERROR);

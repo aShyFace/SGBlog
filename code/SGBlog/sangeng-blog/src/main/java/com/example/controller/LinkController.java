@@ -5,15 +5,16 @@ package com.example.controller;
 
 import com.example.domain.ResponseResult;
 import com.example.domain.vo.LinkVo;
-import com.example.domain.entity.Link;
 import com.example.service.LinkService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ import java.util.List;
 @Slf4j
 @Validated
 @RestController
+@Api(tags = "友链相关接口")
 @RequestMapping("link")
 public class LinkController {
     /**
@@ -35,7 +37,7 @@ public class LinkController {
 
     @GetMapping("getAllLink")
     @ApiOperation(value = "返回所有已审核通过的友链")
-    private ResponseResult<LinkVo> getAllLink(){
+    public ResponseResult<LinkVo> getAllLink(){
         List<LinkVo> linkVoList = linkService.getAllLink();
         return ResponseResult.okResult(linkVoList);
     }

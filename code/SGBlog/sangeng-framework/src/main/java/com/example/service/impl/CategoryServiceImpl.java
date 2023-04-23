@@ -1,7 +1,7 @@
 package com.example.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.domain.dto.CategoryDto;
+import com.example.domain.vo.CategoryVo;
 import com.example.domain.entity.Category;
 import com.example.mapper.CategoryMapper;
 import com.example.service.CategoryService;
@@ -9,7 +9,6 @@ import com.example.utils.BeanCopyUilts;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,9 +25,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         return categoryMapper;
     }
 
-    public List<CategoryDto> getCategoryList() {
+    public List<CategoryVo> getCategoryList() {
         List<Category> categoryList = categoryMapper.getCategoryList();
-        List<CategoryDto> categoryDtoList = BeanCopyUilts.copyBeanList(categoryList, CategoryDto.class);
-        return categoryDtoList;
+        List<CategoryVo> categoryVoList = BeanCopyUilts.copyBeanList(categoryList, CategoryVo.class);
+        return categoryVoList;
     }
 }

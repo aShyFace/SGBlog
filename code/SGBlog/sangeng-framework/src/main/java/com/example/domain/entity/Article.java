@@ -24,8 +24,6 @@ import javax.validation.constraints.NotNull;
  * @since 2023-02-23 13:21:53
  */
 @TableName(value = "sg_article")
-@ApiModel(value = "Article对象", description = "文章表")
-@SuppressWarnings(value = {"serial", "unused"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -34,7 +32,6 @@ public class Article {
     @TableId(value = "id")
     @ApiModelProperty(value = "")
     private Long id;
-
 
     @TableField(value = "title")
     @ApiModelProperty(value = "标题")
@@ -50,8 +47,6 @@ public class Article {
 
     @TableField(value = "category_id")
     @ApiModelProperty(value = "所属分类id")
-    // @NotNull(message = "分类id不能为空", groups = {ValidationGroups.ArticleQuery.class})
-    // @Range(min = 1)
     private Long categoryId;
 
     @TableField(value = "thumbnail")
@@ -95,5 +90,9 @@ public class Article {
     private Integer delFlag;
 
 
+    public Article(Long id, long viewCount) {
+        this.id = id;
+        this.viewCount = viewCount;
+    }
 }
 

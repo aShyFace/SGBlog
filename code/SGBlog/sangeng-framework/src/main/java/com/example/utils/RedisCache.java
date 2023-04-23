@@ -203,6 +203,19 @@ public class RedisCache
     }
 
     /**
+     * 修改Hash中的数据（value自增）
+     *
+     * @param key Redis键
+     * @param hKey Hash键
+     * @param hKey Hash键
+     * @return Hash中的对象
+     */
+    public void incrementCacheMapValue(final String key, final String hKey, Long step)
+    {
+        redisTemplate.opsForHash().increment(key, hKey, step);
+    }
+
+    /**
      * 删除Hash中的数据
      * 
      * @param key

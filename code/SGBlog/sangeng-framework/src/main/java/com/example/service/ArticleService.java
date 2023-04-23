@@ -3,9 +3,9 @@ package com.example.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.common.PageParams;
 import com.example.common.PageResult;
-import com.example.domain.dto.HotArticleDto;
+import com.example.domain.vo.article.HotArticleVo;
 import com.example.domain.entity.Article;
-import com.example.domain.vo.ArticleVo;
+import com.example.domain.vo.article.ArticlePreviewVo;
 
 import java.util.List;
 
@@ -16,10 +16,12 @@ import java.util.List;
  * @since 2023-02-20 22:57:14
  */
 public interface ArticleService extends IService<Article> {
-    List<HotArticleDto> hotArticleList();
+    List<HotArticleVo> hotArticleList();
 
-    PageResult<ArticleVo> articleList(PageParams pageParams, Long categoryId);
+    PageResult<ArticlePreviewVo> articleList(PageParams pageParams, Long categoryId);
 
-    ArticleVo getArticleById(Long articleId);
+    ArticlePreviewVo getArticleById(Long articleId);
+
+    int updateViewCount(Long articleId);
 }
 

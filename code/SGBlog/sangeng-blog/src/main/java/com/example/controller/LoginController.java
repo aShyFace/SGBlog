@@ -2,11 +2,12 @@ package com.example.controller;
 
 import com.example.domain.ResponseResult;
 import com.example.domain.entity.User;
-import com.example.domain.vo.UserAuthVo;
+import com.example.domain.dto.UserAuthDto;
 import com.example.handler.exception.ValidationGroups;
 import com.example.service.LoginService;
 import com.example.utils.BeanCopyUilts;
 import com.example.utils.SecurityUtils;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,13 +26,14 @@ import java.util.HashMap;
 @Slf4j
 @Validated
 @RestController
+@Api(tags = "登录接口")
 public class LoginController {
     @Resource
     private LoginService loginService;
 
     @PostMapping("/login")
-    public ResponseResult login(@Validated(value = ValidationGroups.UserLoginPassword.class) @RequestBody UserAuthVo userAuthVo) throws Exception {
-        HashMap dataMap = loginService.login(BeanCopyUilts.copyBean(userAuthVo, User.class));
+    public ResponseResult login(@Validated(value = ValidationGroups.UserLoginPassword.class) @RequestBody UserAuthDto userAuthDto) throws Exception {
+        HashMap dataMap = loginService.login(BeanCopyUilts.copyBean(userAuthDto, User.class));
         return ResponseResult.okResult(dataMap);
     }
 
