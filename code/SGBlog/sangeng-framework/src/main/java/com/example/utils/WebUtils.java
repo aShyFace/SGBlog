@@ -1,8 +1,7 @@
 package com.example.utils;
 
-import org.springframework.web.context.request.RequestContextHolder;
-
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -40,5 +39,20 @@ public class WebUtils
 
 //        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 //        response.setCharacterEncoding("utf-8");
+    }
+
+    /**
+     * 设置“需要携带token，但前端没有携带token”的响应的响应头
+     *
+     * @param response 响应对象
+     * @param request 请求对象
+     * @return null
+     */
+    public static void setCorsHead(HttpServletRequest request, HttpServletResponse response) {
+        response.addHeader("Vary", "Origin");
+        response.addHeader("Vary", "Access-Control-Request-Method");
+        response.addHeader("Vary", "Access-Control-Request-Headers");
+        response.addHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+        response.addHeader("Access-Control-Allow-Credentials", "true");
     }
 }

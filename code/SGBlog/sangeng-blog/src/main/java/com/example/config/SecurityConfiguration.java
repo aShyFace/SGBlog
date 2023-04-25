@@ -72,10 +72,9 @@ public class SecurityConfiguration {
                     .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                     // 登录接口在这里设置没用，得去webSecurityCustomizer设置
                     .authorizeRequests(authorize -> authorize
-                            .mvcMatchers("/user/register").anonymous()
-                            .mvcMatchers("/user/getAllLink").anonymous()
-                            .mvcMatchers("/login", "/upload").anonymous()
-                            .mvcMatchers("/logout", "/user**", "/comment**").authenticated()
+                            // .mvcMatchers().anonymous()
+                            .mvcMatchers("/login", "/user/register", "/upload", "/link/getAllLink").anonymous()
+                            .mvcMatchers("/logout", "/user/**", "/comment/**", "/link/**").authenticated()
                             // // 实际上，访问这个接口的时候前端不会携带token，所以这个接口只用来测试权限认证是否开启
                             // .mvcMatchers("/link/getAllLink").authenticated()
                             .anyRequest().permitAll()

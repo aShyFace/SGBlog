@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.domain.ResponseResult;
 import com.example.enums.AppHttpCodeEnum;
 import com.example.utils.WebUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.AuthenticationException;
@@ -21,11 +22,12 @@ import java.io.IOException;
  * @author: Zhi
  * @date: 2023/4/4 下午3:22
  */
+@Slf4j
 @Component
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        authException.printStackTrace();
+        log.error("AuthenticationEntryPointImpl:: <<<{}>>>", authException.getMessage());
 
         ResponseResult result = null;
         // 看日志信息，来确定 登录时出现的问题与异常的映射关系，
@@ -37,6 +39,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
             result = ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR.getCode(),"认证或授权失败");
         }
         //响应给前端
+        WebUtils.setCorsHead(request, response);
         WebUtils.renderString(response, JSON.toJSONString(result));
     }
 }

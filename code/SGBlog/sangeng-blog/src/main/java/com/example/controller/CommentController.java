@@ -38,6 +38,8 @@ public class CommentController {
      */
     @Resource
     private CommentService commentService;
+    // @Autowired
+    // protected HttpServletRequest request;
 
     @GetMapping("/commentList")
     @ApiOperation(value = "根据文章id返回该文章下的评论，需要设置分页参数", notes = "参数为 pageNum，pageSize，categoryId")
@@ -51,6 +53,10 @@ public class CommentController {
     @PostMapping
     @ApiOperation(value = "添加评论")
     public ResponseResult addComment(@Validated(value = ValidationGroups.CommentInsert.class) @RequestBody AddCommentDto addCommentDto){
+        // String token = request.getHeader("token");
+        // if (Objects.isNull(token)){
+        //     return ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);
+        // }
         int ret = commentService.addComment(BeanCopyUilts.copyBean(addCommentDto, Comment.class));
         if (MethodConstant.SUCCESS == ret) {
             return ResponseResult.okResult();

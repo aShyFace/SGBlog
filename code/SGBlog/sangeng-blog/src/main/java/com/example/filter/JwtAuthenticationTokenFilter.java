@@ -13,7 +13,6 @@ import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -48,9 +47,14 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             // 响应头
             // response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
             response.setHeader("Access-Control-Allow-Origin", "*");
+            // response.addHeader("Access-Control-Allow-Origin", "always");
+
             response.setHeader("Access-Control-Allow-Methods", "*");
             response.setHeader("Access-Control-Max-Age", "3600");
+
             response.setHeader("Access-Control-Allow-Headers", "*");
+            // response.addHeader("Access-Control-Allow-Headers", "Origin");
+            // response.addHeader("Access-Control-Allow-Headers", "X-Auth-Token");
             // response.setHeader("Access-Control-Allow-Methods", "POST,OPTIONS,GET");
             response.setHeader("Access-Control-Allow-Credentials", "true");
             response.setCharacterEncoding("utf-8");
@@ -70,6 +74,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             *       1. OncePerRequestFilter 只是SecurityFilterChain的其中一个过滤器，在OncePerRequestFilter后面还有很多Filter，它放行 != 其它过滤器也放行
             *       2. authorizeRequests配置的过滤器就在OncePerRequestFilter后面，不匹配authorizeRequests的该拦截还是被拦截
             *       3. 不匹配authorizeRequests的请求，会得到4开头的响应，内容大概是要你登录
+            *           比如这种：InsufficientAuthenticationException: Full authentication is required to access this resource
             * */
             filterChain.doFilter(request, response);
             return;
