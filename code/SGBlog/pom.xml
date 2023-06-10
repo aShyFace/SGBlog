@@ -155,35 +155,35 @@
         </dependencies>
     </dependencyManagement>
 
-<!--    &lt;!&ndash;  构建项目时所需的信息  &ndash;&gt;-->
-<!--    <build>-->
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-compiler-plugin</artifactId>-->
-<!--                <version>3.1</version>-->
-<!--                <configuration>-->
-<!--                    <source>${java.version}</source>-->
-<!--                    <target>${java.version}</target>-->
-<!--                    <encoding>${project.build.sourceEncoding}</encoding>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+    <!--&lt;!&ndash;  构建项目时所需的信息  &ndash;&gt;-->
+    <!--<build>-->
+    <!--    <plugins>-->
+    <!--        <plugin>-->
+    <!--            <groupId>org.apache.maven.plugins</groupId>-->
+    <!--            <artifactId>maven-compiler-plugin</artifactId>-->
+    <!--            <version>3.1</version>-->
+    <!--            <configuration>-->
+    <!--                <source>${java.version}</source>-->
+    <!--                <target>${java.version}</target>-->
+    <!--                <encoding>${project.build.sourceEncoding}</encoding>-->
+    <!--            </configuration>-->
+    <!--        </plugin>-->
 
-<!--        </plugins>-->
-<!--    </build>-->
+    <!--    </plugins>-->
+    <!--</build>-->
 
-<!--    &lt;!&ndash;发现依赖和扩展的远程仓库列表。&ndash;&gt;-->
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>spring-releases</id>-->
-<!--            <url>https://repo.spring.io/libs-release</url>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-<!--     &lt;!&ndash;发现插件的远程仓库列表，这些插件用于构建和报表&ndash;&gt;-->
-<!--    <pluginRepositories>-->
-<!--        <pluginRepository>-->
-<!--            <id>spring-releases</id>-->
-<!--            <url>https://repo.spring.io/libs-release</url>-->
-<!--        </pluginRepository>-->
-<!--    </pluginRepositories>-->
+    <!--&lt;!&ndash;发现依赖和扩展的远程仓库列表。&ndash;&gt;-->
+    <!--<repositories>-->
+    <!--    <repository>-->
+    <!--        <id>spring-releases</id>-->
+    <!--        <url>https://repo.spring.io/libs-release</url>-->
+    <!--    </repository>-->
+    <!--</repositories>-->
+    <!-- &lt;!&ndash;发现插件的远程仓库列表，这些插件用于构建和报表&ndash;&gt;-->
+    <!--<pluginRepositories>-->
+    <!--    <pluginRepository>-->
+    <!--        <id>spring-releases</id>-->
+    <!--        <url>https://repo.spring.io/libs-release</url>-->
+    <!--    </pluginRepository>-->
+    <!--</pluginRepositories>-->
 </project>

@@ -2,17 +2,21 @@ package com.example.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.constant.RedisConstant;
+import com.example.constant.RoleConstant;
 import com.example.domain.entity.LoginUser;
-import com.example.domain.dto.UserInfoDto;
+import com.example.domain.vo.user.LoginSucceseVo;
+import com.example.domain.vo.user.UserInfoVo;
 import com.example.mapper.UserMapper;
 import com.example.domain.entity.User;
 import com.example.service.LoginService;
-import com.example.utils.BeanCopyUilts;
+import com.example.service.RoleService;
+import com.example.utils.BeanCopyUtils;
 import com.example.utils.JwtUtil;
 import com.example.utils.RedisCache;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,29 +37,29 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
 //    该工具类的方法不是static方法，所以要注入才能使用
     @Resource
     private RedisCache redisCache;
+    @Resource
+    private RoleService roleService;
 
-
-    public HashMap login(User user) {
+    public LoginSucceseVo login(User user, String user_key) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword());
-//        这里会调用 UserDetailsService.loadUserByUsername()，然后把方法的返回值给到DaoAuthenticationProvider
+        // 1.这里会调用 UserDetailsService.loadUserByUsername()，然后把方法的返回值给到DaoAuthenticationProvider
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
-//        返回认证结果（实现了UserDetails的类对象）
+        // 2.返回认证结果（实现了UserDetails的类对象）
         if ( Objects.isNull(authenticate)){
             throw new RuntimeException("LoginServiceImpl::login 用户名或密码错误");
         }
 
-        // 认证成功则利用UserDetails对象生成token
+        // 3.认证成功则利用UserDetails对象生成token
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         String id = loginUser.getUser().getId().toString();
         String token = JwtUtil.createJWT(id);
 
-        // 然后把用户信息存入redis中，方便下次验证通过时使用
+        // 4.然后把用户信息存入redis中，方便下次验证通过时使用
         redisCache.setCacheObject(String.join("", new String[]{RedisConstant.USER_INFO_KEY, id}), loginUser);
         // 封装响应数据
-        HashMap dataMap = new HashMap<>();
-        dataMap.put("token", token);
-        dataMap.put("userInfo", BeanCopyUilts.copyBean(loginUser.getUser(), UserInfoDto.class));
-        return dataMap;
+        UserInfoVo userInfoVo = BeanCopyUtils.copyBean(loginUser.getUser(), UserInfoVo.class);
+        LoginSucceseVo loginSucceseVo = new LoginSucceseVo(token, userInfoVo);
+        return loginSucceseVo;
     }
 
 

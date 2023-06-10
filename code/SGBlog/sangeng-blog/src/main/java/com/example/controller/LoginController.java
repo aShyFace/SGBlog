@@ -1,21 +1,27 @@
 package com.example.controller;
 
+import com.example.constant.RedisConstant;
 import com.example.domain.ResponseResult;
+import com.example.domain.entity.LoginUser;
 import com.example.domain.entity.User;
 import com.example.domain.dto.UserAuthDto;
+import com.example.domain.vo.user.LoginSucceseVo;
+import com.example.domain.vo.user.UserInfoVo;
 import com.example.handler.exception.ValidationGroups;
 import com.example.service.LoginService;
-import com.example.utils.BeanCopyUilts;
+import com.example.utils.BeanCopyUtils;
 import com.example.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 
 /**
 * @ClassName: LoginController
@@ -33,11 +39,11 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseResult login(@Validated(value = ValidationGroups.UserLoginPassword.class) @RequestBody UserAuthDto userAuthDto) throws Exception {
-        HashMap dataMap = loginService.login(BeanCopyUilts.copyBean(userAuthDto, User.class));
-        return ResponseResult.okResult(dataMap);
+        LoginSucceseVo loginSucceseVo = loginService.login(BeanCopyUtils.copyBean(userAuthDto, User.class), RedisConstant.USER_INFO_KEY);
+        return ResponseResult.okResult(loginSucceseVo);
     }
 
-    @PostMapping("/logout")
+     @PostMapping("/logout")
     public ResponseResult logout(){
         /*
          * 1. 因为redis中的key由 自定义字符+userId 组成，从redis删掉它需要userId

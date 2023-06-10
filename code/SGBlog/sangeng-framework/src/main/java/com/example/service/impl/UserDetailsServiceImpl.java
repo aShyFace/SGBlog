@@ -1,16 +1,20 @@
 package com.example.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.constant.RoleConstant;
 import com.example.domain.entity.LoginUser;
 import com.example.domain.entity.User;
 import com.example.mapper.UserMapper;
-import com.example.utils.BeanCopyUilts;
+import com.example.service.RoleService;
+import org.jdom2.JDOMConstants;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -34,8 +38,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new RuntimeException("账号或密码错误");
         }
 
-//        查询结果封装成UserDetails的类对象
-        LoginUser loginUser = new LoginUser(user);
+        // 查询结果 封装成UserDetails的类对象
+        LoginUser loginUser = new LoginUser(user, null);
         return loginUser;
     }
 }

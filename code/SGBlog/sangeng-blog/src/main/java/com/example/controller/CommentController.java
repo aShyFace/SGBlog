@@ -12,7 +12,7 @@ import com.example.domain.vo.CommentVo;
 import com.example.enums.AppHttpCodeEnum;
 import com.example.handler.exception.ValidationGroups;
 import com.example.service.CommentService;
-import com.example.utils.BeanCopyUilts;
+import com.example.utils.BeanCopyUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -57,7 +57,7 @@ public class CommentController {
         // if (Objects.isNull(token)){
         //     return ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);
         // }
-        int ret = commentService.addComment(BeanCopyUilts.copyBean(addCommentDto, Comment.class));
+        int ret = commentService.addComment(BeanCopyUtils.copyBean(addCommentDto, Comment.class));
         if (MethodConstant.SUCCESS == ret) {
             return ResponseResult.okResult();
         }else{

@@ -3,6 +3,7 @@ package com.example.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.constant.RedisConstant;
+import com.example.constant.UserConstant;
 import com.example.domain.entity.LoginUser;
 import com.example.domain.dto.UserAuthDto;
 import com.example.domain.dto.UserInfoDto;
@@ -11,7 +12,7 @@ import com.example.exception.SystemException;
 import com.example.mapper.UserMapper;
 import com.example.domain.entity.User;
 import com.example.service.UserService;
-import com.example.utils.BeanCopyUilts;
+import com.example.utils.BeanCopyUtils;
 import com.example.utils.RedisCache;
 import com.example.utils.SecurityUtils;
 import org.springframework.beans.BeanUtils;
@@ -67,7 +68,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 加密后存入数据库
         String password = userAuthDto.getPassword();
         userAuthDto.setPassword(passwordEncoder.encode(password));
-        User user = BeanCopyUilts.copyBean(userAuthDto, User.class);
+        User user = BeanCopyUtils.copyBean(userAuthDto, User.class);
         return save(user);
     }
 

@@ -7,7 +7,7 @@ import com.example.domain.entity.Link;
 import com.example.domain.vo.LinkVo;
 import com.example.mapper.LinkMapper;
 import com.example.service.LinkService;
-import com.example.utils.BeanCopyUilts;
+import com.example.utils.BeanCopyUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,7 +27,7 @@ public class FLServiceImpl extends ServiceImpl<LinkMapper, Link> implements Link
     public List<LinkVo> getAllLink() {
         LambdaQueryWrapper<Link> lqw = new LambdaQueryWrapper<>();
         List<Link> linkList = linkMapper.selectList(lqw.eq(Link::getStatus, LinkConstant.LINK_IS_VERIFIED));
-        List<LinkVo> linkVoList = BeanCopyUilts.copyBeanList(linkList, LinkVo.class);
+        List<LinkVo> linkVoList = BeanCopyUtils.copyBeanList(linkList, LinkVo.class);
         return linkVoList;
     }
 }

@@ -1,11 +1,10 @@
 package com.example.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.domain.ResponseResult;
 import com.example.domain.entity.User;
+import com.example.domain.vo.user.LoginSucceseVo;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 用户表(User)表服务接口
@@ -15,7 +14,7 @@ import java.util.Map;
  */
 public interface LoginService extends IService<User> {
 
-    HashMap login(User user);
+    LoginSucceseVo login(User user, String user_key);
 
     void logout(Long userId);
 }

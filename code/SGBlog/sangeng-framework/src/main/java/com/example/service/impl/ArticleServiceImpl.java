@@ -14,7 +14,7 @@ import com.example.mapper.ArticleMapper;
 import com.example.domain.entity.Article;
 import com.example.mapper.CategoryMapper;
 import com.example.service.ArticleService;
-import com.example.utils.BeanCopyUilts;
+import com.example.utils.BeanCopyUtils;
 import com.example.utils.RedisCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -53,7 +53,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         page(page,lqw);
 
         List<Article> articleList = page.getRecords();
-        List<HotArticleVo> hotArticleVoList = BeanCopyUilts.copyBeanList(articleList, HotArticleVo.class);
+        List<HotArticleVo> hotArticleVoList = BeanCopyUtils.copyBeanList(articleList, HotArticleVo.class);
         Map<String, Integer> viewCount = redisCache.getCacheMap(ArticleConstant.ARTICLE_VIEWCOUNT_KEY);
         hotArticleVoList.stream().forEach(hotArticleVo -> {
             String key = hotArticleVo.getId().toString();
@@ -75,7 +75,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 //        把分类名称设置到分页查询结果中
         Map<String, Integer> viewCount = redisCache.getCacheMap(ArticleConstant.ARTICLE_VIEWCOUNT_KEY);
         String categoryName = categoryMapper.selectById(categoryId).getName();
-        List<ArticlePreviewVo> articlePreviewVoList = BeanCopyUilts.copyBeanList(articleList, ArticlePreviewVo.class)
+        List<ArticlePreviewVo> articlePreviewVoList = BeanCopyUtils.copyBeanList(articleList, ArticlePreviewVo.class)
                                         .stream().map(articlePreviewVo -> {
                                             articlePreviewVo.setCategoryName(categoryName);
                                             articlePreviewVo.setContent(" "); //热门文章列表不显示内容
@@ -89,7 +89,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
 
     public ArticlePreviewVo getArticleById(Long articleId) {
-        ArticlePreviewVo articlePreviewVo = BeanCopyUilts.copyBean(articleMapper.selectById(articleId), ArticlePreviewVo.class);
+        ArticlePreviewVo articlePreviewVo = BeanCopyUtils.copyBean(articleMapper.selectById(articleId), ArticlePreviewVo.class);
         Integer viewCount = redisCache.getCacheMapValue(ArticleConstant.ARTICLE_VIEWCOUNT_KEY, articleId.toString());
         articlePreviewVo.setViewCount(viewCount.longValue());
         if (log.isDebugEnabled()){

@@ -8,6 +8,9 @@ package com.example.constant;
  * @date: 2023/4/7 下午3:04
  */
 public class CommentConstant {
+    /**
+     * -1表示 该评论为根评论
+     * */
     public static final Long COMMENT_IS_ROOT = -1L;
 
     // 0表示该评论为文章评论；1表示为友链评论

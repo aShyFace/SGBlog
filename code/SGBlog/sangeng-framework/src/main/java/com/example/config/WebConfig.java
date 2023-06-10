@@ -25,7 +25,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         // 要处理的请求地址，“**”表示匹配所有路径
-        registry.addMapping("/**")
+        registry.addMapping("/** ")
                 // 设置允许跨域请求的域名
                 .allowedOriginPatterns("*")
                 // 是否允许cookie（当然，前端发不发是另外一回事）
@@ -66,7 +66,8 @@ public class WebConfig implements WebMvcConfigurer {
         fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
         fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
 
-//        SerializeConfig.globalInstance.put(Long.class, ToStringSerializer.instance);
+       // 把long类型的数据转为String传送给前端（前端判断的是“0”，如果不转会导致代码错误，而且正常业务也得转）
+       SerializeConfig.globalInstance.put(Long.class, ToStringSerializer.instance);
 
         fastJsonConfig.setSerializeConfig(SerializeConfig.globalInstance);
         fastConverter.setFastJsonConfig(fastJsonConfig);

@@ -5,11 +5,12 @@ import com.example.domain.ResponseResult;
 import com.example.domain.dto.UserAuthDto;
 import com.example.domain.dto.UserInfoDto;
 import com.example.domain.entity.User;
-import com.example.domain.vo.UserInfoVo;
+import com.example.domain.vo.user.UserInfoVo;
+import com.example.domain.vo.user.UserInfoVo;
 import com.example.enums.AppHttpCodeEnum;
 import com.example.handler.exception.ValidationGroups;
 import com.example.service.UserService;
-import com.example.utils.BeanCopyUilts;
+import com.example.utils.BeanCopyUtils;
 import com.example.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,7 +45,7 @@ public class UserController {
     public ResponseResult userInfo(){
         User user = SecurityUtils.getLoginUser().getUser();
         if (Objects.nonNull(user)){
-            return ResponseResult.okResult(BeanCopyUilts.copyBean(user, UserInfoVo.class));
+            return ResponseResult.okResult(BeanCopyUtils.copyBean(user, UserInfoVo.class));
         }
         return ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);
     }

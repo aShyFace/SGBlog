@@ -5,7 +5,7 @@ import com.example.domain.vo.CategoryVo;
 import com.example.domain.entity.Category;
 import com.example.mapper.CategoryMapper;
 import com.example.service.CategoryService;
-import com.example.utils.BeanCopyUilts;
+import com.example.utils.BeanCopyUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,7 +27,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
     public List<CategoryVo> getCategoryList() {
         List<Category> categoryList = categoryMapper.getCategoryList();
-        List<CategoryVo> categoryVoList = BeanCopyUilts.copyBeanList(categoryList, CategoryVo.class);
+        List<CategoryVo> categoryVoList = BeanCopyUtils.copyBeanList(categoryList, CategoryVo.class);
         return categoryVoList;
     }
 }

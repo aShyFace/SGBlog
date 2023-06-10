@@ -9,5 +9,8 @@ import org.apache.xmlbeans.impl.xb.xsdschema.Public;
  * @date: 2023/3/30 上午10:14
  */
 public class LinkConstant {
+    /**
+     * 友链是否通过审核
+     * */
     public static final int LINK_IS_VERIFIED = 0;
 }

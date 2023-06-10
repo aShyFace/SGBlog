@@ -23,6 +23,7 @@ import java.util.Objects;
 @Data
 public class LoginUser implements UserDetails {
     private User user;
+    private String userRoleKey; // 当前用户的角色权限
 //    public LoginUser(User user) {
 //        this.user = user;
 //    }

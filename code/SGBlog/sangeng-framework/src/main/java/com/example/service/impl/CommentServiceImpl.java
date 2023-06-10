@@ -54,7 +54,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         PageInfo pageInfo = new PageInfo(rootCommentList);
         // totalSize应该是
         return new PageResult(rootCommentList, pageInfo.getTotal(), pageParams);
-        // List<CommentVo> commentVoList = BeanCopyUilts.copyBeanList(commentList, CommentVo.class);
+        // List<CommentVo> commentVoList = BeanCopyUtils.copyBeanList(commentList, CommentVo.class);
         // return new PageResult<>(commentVoList, commentVoList.size(), pageParams);
     }
 

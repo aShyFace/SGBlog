@@ -19,7 +19,7 @@ import java.util.Date;
 @Repository
 @Data
 public class ArticlePreviewVo {
-    @ApiModelProperty(value = "文章id")
+    // @ApiModelProperty(value = "文章id")
     @NotNull(message = "文章id不能为空", groups = {ValidationGroups.ArticleQuery.class})
     private Long id;
 
