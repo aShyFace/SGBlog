@@ -55,7 +55,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
         String token = JwtUtil.createJWT(id);
 
         // 4.然后把用户信息存入redis中，方便下次验证通过时使用
-        redisCache.setCacheObject(String.join("", new String[]{RedisConstant.USER_INFO_KEY, id}), loginUser);
+        redisCache.setCacheObject(String.join("", new String[]{user_key, id}), loginUser);
         // 封装响应数据
         UserInfoVo userInfoVo = BeanCopyUtils.copyBean(loginUser.getUser(), UserInfoVo.class);
         LoginSucceseVo loginSucceseVo = new LoginSucceseVo(token, userInfoVo);
@@ -63,8 +63,8 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
     }
 
 
-    public void logout(Long userId) {
-        String[] key = new String[]{RedisConstant.USER_INFO_KEY, userId.toString()};
+    public void logout(Long userId, String user_key) {
+        String[] key = new String[]{user_key, userId.toString()};
         redisCache.deleteObject(String.join("", key));
     }
 }

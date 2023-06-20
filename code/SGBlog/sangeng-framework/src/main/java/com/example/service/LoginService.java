@@ -16,6 +16,6 @@ public interface LoginService extends IService<User> {
 
     LoginSucceseVo login(User user, String user_key);
 
-    void logout(Long userId);
+    void logout(Long userId, String user_key);
 }
 

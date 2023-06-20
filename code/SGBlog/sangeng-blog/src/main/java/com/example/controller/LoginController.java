@@ -50,7 +50,7 @@ public class LoginController {
          * 2. 请求分配到该controller之前，会被jwt过滤器（自己写的）和 SecurityFilterChain拦截。
          *      换句话说，到了该controller的请求都是 携带了token并且token是有效的
          */
-        loginService.logout(SecurityUtils.getUserId());
+        loginService.logout(SecurityUtils.getUserId(), RedisConstant.USER_INFO_KEY);
         return ResponseResult.okResult(200, "操作成功");
     }
 

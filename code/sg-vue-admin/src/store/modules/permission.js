@@ -107,7 +107,7 @@ function buildRouterTree(menus) {
       children.component = 'InnerLink'
       children.name = getRouterName(menu)
       children.meta = getComponentMeta(menu)
-      childrenRouterList.psuh(children)
+      childrenRouterList.push(children)
       router.children = childrenRouterList
     }
 

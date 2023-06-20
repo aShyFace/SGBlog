@@ -11,6 +11,7 @@ import com.example.utils.JwtUtil;
 import com.example.utils.RedisCache;
 import com.example.utils.WebUtils;
 import io.jsonwebtoken.Claims;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -37,6 +38,8 @@ import java.util.Objects;
  * @author: Zhi
  * @date: 2023/4/2 下午3:09
  */
+
+@Slf4j
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
@@ -125,6 +128,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             }
         }
 
+//        log.debug(loginUser.toString());
         // 4.用户存在,则把查询出的UserDetail对象存入SecurityContextHolder
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,null); //三个参数的方法代表该用户已认证
         // SecurityContextHolder.getContext()为空 不代表SecurityContextHolder不能调用getContext().setAuthentication()

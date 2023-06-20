@@ -62,6 +62,7 @@ public class AdminLoginController {
     @GetMapping("/getInfo")
     public ResponseResult getInfo(){
         LoginUser loginUser = SecurityUtils.getLoginUser();
+//        log.debug(loginUser.toString());
         Long userId = loginUser.getUser().getId();
         boolean userIsRoot = loginUser.getUserRoleKey().equals(RoleConstant.ROOT_ROLE_KEY);
         //根据用户id查询角色信息
@@ -87,8 +88,8 @@ public class AdminLoginController {
         //根据用户id查询权限信息
         List<MenuVo> routerMenuTree = menuService.selectRouterMenuTreeByUserId(userId, userIsRoot);
         // List<MenuVo> routerMenuTree = menuService.selectRouterMenuTreeByUserId(1L, true);
-        HashMap<String, List<MenuVo>> menus = new HashMap<>();
-        menus.put("menus", routerMenuTree);
+         HashMap<String, List<MenuVo>> menus = new HashMap<>();
+         menus.put("menus", routerMenuTree);
         return ResponseResult.okResult(menus);
     }
 
@@ -100,7 +101,7 @@ public class AdminLoginController {
          * 2. 请求分配到该controller之前，会被jwt过滤器（自己写的）和 SecurityFilterChain拦截。
          *      换句话说，到了该controller的请求都是 携带了token并且token是有效的
          */
-        loginService.logout(SecurityUtils.getUserId());
+        loginService.logout(SecurityUtils.getUserId(), RedisConstant.ADMIN_INFO_KEY);
         return ResponseResult.okResult(200, "操作成功");
     }
 
