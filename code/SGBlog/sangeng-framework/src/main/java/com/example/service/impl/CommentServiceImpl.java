@@ -61,7 +61,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
     public int addComment(Comment comment) {
         // MyMetaObjectHandler中会自动填充 id(token中获取),time等信息
-        int ret = save(comment)? MethodConstant.SUCCESS:MethodConstant.ERROR;
+        int ret = save(comment) ? MethodConstant.SUCCESS:MethodConstant.ERROR;
         return ret;
     }
 }

@@ -1,24 +1,17 @@
 package com.example.domain.entity;
 
 
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.example.handler.exception.ValidationGroups;
-import org.hibernate.validator.constraints.Range;
-import org.springframework.stereotype.Repository;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Repository;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Null;
+import java.util.Date;
 
 /**
  * 评论表(Comment)表实体类
@@ -35,51 +28,51 @@ import javax.validation.constraints.Null;
 @Repository
 public class Comment {
     @TableId(value="id")
-    @ApiModelProperty(value="")
+//    @ApiModelProperty(value="")
     private Long id;
 
     @TableField(value="type")
-    @ApiModelProperty(value="评论类型（0代表文章评论，1代表友链评论）")
+//    @ApiModelProperty(value="评论类型（0代表文章评论，1代表友链评论）")
     private String type;
 
     @TableField(value="article_id")
-    @ApiModelProperty(value="文章id")
+//    @ApiModelProperty(value="文章id")
     private Long articleId;
 
     @TableField(value="root_id")
-    @ApiModelProperty(value="根评论id")
+//    @ApiModelProperty(value="根评论id")
     private Long rootId;
 
     @TableField(value="content")
-    @ApiModelProperty(value="评论内容")
+//    @ApiModelProperty(value="评论内容")
     private String content;
     
     @TableField(value="to_comment_user_id")
-    @ApiModelProperty(value="所回复的目标评论的userid")
+//    @ApiModelProperty(value="所回复的目标评论的userid")
     private Long toCommentUserId;
     
     @TableField(value="to_comment_id")
-    @ApiModelProperty(value="回复目标评论id")
+//    @ApiModelProperty(value="回复目标评论id")
     private Long toCommentId;
     
-    @ApiModelProperty()
+//    @ApiModelProperty()
     @TableField(value="create_by", fill = FieldFill.INSERT)
     private Long createBy;
     
-    @ApiModelProperty(value="")
+//    @ApiModelProperty(value="")
     @TableField(value="create_time", fill = FieldFill.INSERT)
     private Date createTime;
     
-    @ApiModelProperty(value="")
+//    @ApiModelProperty(value="")
     @TableField(value="update_by", fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
     
-    @ApiModelProperty(value="")
+//    @ApiModelProperty(value="")
     @TableField(value="update_time", fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
     
     @TableField(value="del_flag")
-    @ApiModelProperty(value="删除标志（0代表未删除，1代表已删除）")
+//    @ApiModelProperty(value="删除标志（0代表未删除，1代表已删除）")
     private Integer delFlag;
     
 
