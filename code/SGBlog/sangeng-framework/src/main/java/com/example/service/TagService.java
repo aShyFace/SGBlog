@@ -5,6 +5,7 @@ import com.example.common.PageParams;
 import com.example.common.PageResult;
 import com.example.domain.dto.TagDto;
 import com.example.domain.entity.Tag;
+import com.example.domain.vo.TagVo;
 
 /**
  * 标签(Tag)表服务接口
@@ -14,8 +15,14 @@ import com.example.domain.entity.Tag;
  */
 public interface TagService extends IService<Tag> {
 
-    PageResult tagList(PageParams pageParams, String name, String remark);
+  PageResult tagList(PageParams pageParams, String name, String remark);
 
   int addTag(TagDto tagDto);
+
+  int deleteTag(Long tagId);
+
+  TagVo getTagById(Long tagId);
+
+  int updateTag(TagDto tagDto);
 }
 

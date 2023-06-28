@@ -16,6 +16,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  * 标签(Tag)表控制层
@@ -44,12 +47,45 @@ public class TagController {
     @PostMapping("")
     public ResponseResult addTag(@Validated(value = ValidationGroups.TagInsert.class)
                                  @RequestBody TagDto tagDto){
-        log.debug("||||| tagList::{}, {} |||||", tagDto.getName(), tagDto.getRemark());
+        log.debug("||||| addTag::{}, {} |||||", tagDto.getName(), tagDto.getRemark());
         int status = tagService.addTag(tagDto);
         if (MethodConstant.SUCCESS == status) {
             return ResponseResult.okResult();
         }else {
             return ResponseResult.errorResult(AppHttpCodeEnum.INSTER_ERROR);
+        }
+    }
+    @PutMapping("")
+    public ResponseResult updateTag(@Validated(value = ValidationGroups.TagUpdate.class)
+                                 @RequestBody TagDto tagDto){
+        log.debug("||||| updateTag::{}, {} |||||", tagDto.getName(), tagDto.getRemark());
+        int status = tagService.updateTag(tagDto);
+        if (MethodConstant.SUCCESS == status) {
+            return ResponseResult.okResult();
+        }else {
+            return ResponseResult.errorResult(AppHttpCodeEnum.UPDATE_ERROR);
+        }
+    }
+    @DeleteMapping("{tagId}")
+    public ResponseResult deleteTag(@NotNull(message = "标签id不能为空") @Min(1L)
+                                    @PathVariable Long tagId){
+        log.debug("||||| deleteTag::{} |||||", tagId);
+        int status = tagService.deleteTag(tagId);
+        if (MethodConstant.SUCCESS == status) {
+            return ResponseResult.okResult();
+        }else {
+            return ResponseResult.errorResult(AppHttpCodeEnum.INSTER_ERROR);
+        }
+    }
+    @GetMapping("{tagId}")
+    public ResponseResult updateTag(@NotNull(message = "标签id不能为空") @Min(1L)
+                                    @PathVariable Long tagId){
+        log.debug("||||| updateTag::{} |||||", tagId);
+        TagVo tagVo = tagService.getTagById(tagId);
+        if (Objects.nonNull(tagVo)) {
+            return ResponseResult.okResult(tagVo);
+        }else {
+            return ResponseResult.errorResult(AppHttpCodeEnum.QUERY_ERROR);
         }
     }
 }

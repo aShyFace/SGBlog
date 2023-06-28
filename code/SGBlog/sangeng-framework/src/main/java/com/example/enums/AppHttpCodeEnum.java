@@ -24,6 +24,8 @@ public enum AppHttpCodeEnum {
     USERNAME_EXIST(509,"用户名已存在"),
     NICKNAME_EXIST(510,"昵称已存在"),
 
+    UPDATE_ERROR(597, "修改数据失败"),
+    QUERY_ERROR(598, "查询数据失败"),
     INSTER_ERROR(599, "添加数据失败"),
     ;
     int code;

@@ -32,4 +32,5 @@ public class ValidationGroups {
     public interface CommentUpdate {}
 
     public interface TagInsert {}
+    public interface TagUpdate {}
 }

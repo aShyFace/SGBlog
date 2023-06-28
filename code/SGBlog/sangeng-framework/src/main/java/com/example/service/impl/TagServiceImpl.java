@@ -33,7 +33,6 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     private TagMapper tagMapper;
 
 
-
     public PageResult tagList(PageParams pageParams, String name, String remark) {
         LambdaQueryWrapper<Tag> lqw = new LambdaQueryWrapper();
 //        lqw.eq(Tag::getName, "Java");
@@ -62,6 +61,31 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
             }
         }
         return status;
+    }
+
+    public int deleteTag(Long tagId) {
+        LambdaQueryWrapper<Tag> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(Tag::getId, tagId);
+        int status = MethodConstant.ERROR;
+        if (count(lqw) > 0){ // 大于0表示未删除
+            int i = tagMapper.deleteById(tagId); //逻辑删除
+            status = i != 0 ? MethodConstant.SUCCESS:status;
+        }
+        return status;
+    }
+
+    public TagVo getTagById(Long tagId) {
+        Tag tag = tagMapper.selectById(tagId);
+        TagVo tagVo = null;
+        if (Objects.nonNull(tag)) {
+            tagVo = BeanCopyUtils.copyBean(tag, TagVo.class);
+        }
+        return tagVo;
+    }
+
+    public int updateTag(TagDto tagDto) {
+        int res = tagMapper.updateById(BeanCopyUtils.copyBean(tagDto, Tag.class));
+        return MethodConstant.SUCCESS == res ? MethodConstant.SUCCESS:MethodConstant.ERROR;
     }
 }
 

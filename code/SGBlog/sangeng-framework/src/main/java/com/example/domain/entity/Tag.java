@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -20,6 +21,7 @@ import java.util.Date;
  */
 @TableName(value="sg_tag")
 @SuppressWarnings(value={"serial", "unused"})
+@Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

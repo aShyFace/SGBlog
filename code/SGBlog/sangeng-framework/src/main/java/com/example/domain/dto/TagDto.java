@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 @ApiModel(value="Tag对象", description="标签")
@@ -20,8 +21,9 @@ import javax.validation.constraints.Null;
 @Repository
 public class TagDto {
     @ApiModelProperty(value="id")
+    @NotNull(message = "修改标签时，id不能为空", groups = {ValidationGroups.TagUpdate.class})
     @Null(message = "创建标签时，不能指定id", groups = {ValidationGroups.TagInsert.class})
-    private String id;
+    private Long id;
 
     @ApiModelProperty(value="标签名")
     @NotBlank(message = "创建标签时，标签名不能为空", groups = {ValidationGroups.TagInsert.class})
