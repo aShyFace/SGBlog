@@ -57,7 +57,7 @@ public class ArticleController {
         return ResponseResult.okResult(hotArticleVoList);
     }
 
-    @GetMapping("articleList")
+    @GetMapping("/articleList")
     @ApiOperation(value = "根据文章类别返回对应的文章，需要设置分页参数", notes = "参数为 pageNum，pageSize，categoryId")
     @ApiImplicitParams({
            @ApiImplicitParam(name = "pageNum",value = "页号"),
@@ -70,7 +70,7 @@ public class ArticleController {
         return ResponseResult.okResult(pageArticle);
     }
 
-    @GetMapping("{articleId}")
+    @GetMapping("/{articleId}")
     @ApiOperation(value = "根据传入的articleId返回对应文章")
     public ResponseResult<ArticlePreviewVo> getArticleById(@Valid @NotNull(message = "文章id不能为空") @Min(1L) @PathVariable(value = "articleId") Long articleId){
         ArticlePreviewVo articlePreviewVo = articleService.getArticleById(articleId);

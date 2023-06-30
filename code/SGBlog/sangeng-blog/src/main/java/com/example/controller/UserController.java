@@ -6,7 +6,6 @@ import com.example.domain.dto.UserAuthDto;
 import com.example.domain.dto.UserInfoDto;
 import com.example.domain.entity.User;
 import com.example.domain.vo.user.UserInfoVo;
-import com.example.domain.vo.user.UserInfoVo;
 import com.example.enums.AppHttpCodeEnum;
 import com.example.handler.exception.ValidationGroups;
 import com.example.service.UserService;
@@ -32,7 +31,7 @@ import java.util.Objects;
 @Validated
 @RestController
 @Api(tags = "用户相关接口")
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
     /**
      * 服务对象

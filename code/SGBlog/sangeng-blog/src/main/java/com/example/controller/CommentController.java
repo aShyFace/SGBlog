@@ -31,7 +31,7 @@ import javax.annotation.Resource;
 @Validated
 @RestController
 @Api(tags = "评论相关接口")
-@RequestMapping("comment")
+@RequestMapping("/comment")
 public class CommentController {
     /**
      * 服务对象

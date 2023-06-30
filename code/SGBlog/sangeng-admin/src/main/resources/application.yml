@@ -76,8 +76,8 @@ pagehelper:
 oss:
   accessKey: "VYBGIK1EX2HIWc0Tegg6O62-tteLKvCjiBhtCJ_R"
   secretKey: "UN4brnoWt46IRfhnKXKNQouuLzqoL74Pl7ZMBzx0"
-  bucket: "fz-blog"
-  origin: "rsy0l8clf.hn-bkt.clouddn.com"
+  bucket: "fz-admin"
+  origin: "rx1o76f3o.hn-bkt.clouddn.com"
 
 #swagger:
 #  title:

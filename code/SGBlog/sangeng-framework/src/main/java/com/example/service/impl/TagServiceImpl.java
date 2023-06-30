@@ -87,5 +87,13 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
         int res = tagMapper.updateById(BeanCopyUtils.copyBean(tagDto, Tag.class));
         return MethodConstant.SUCCESS == res ? MethodConstant.SUCCESS:MethodConstant.ERROR;
     }
+
+    public List<TagVo> allTag() {
+        LambdaQueryWrapper<Tag> lqw = new LambdaQueryWrapper<>();
+        lqw.select(Tag::getId, Tag::getName);
+        List<Tag> tagList = tagMapper.selectList(lqw);
+        List<TagVo> tagVoList = BeanCopyUtils.copyBeanList(tagList, TagVo.class);
+        return tagVoList;
+    }
 }
 

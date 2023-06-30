@@ -27,7 +27,7 @@ import java.util.List;
 @Validated
 @RestController
 @Api(tags = "友链相关接口")
-@RequestMapping("link")
+@RequestMapping("/link")
 public class LinkController {
     /**
      * 服务对象
@@ -35,7 +35,7 @@ public class LinkController {
     @Resource
     private LinkService linkService;
 
-    @GetMapping("getAllLink")
+    @GetMapping("/getAllLink")
     @ApiOperation(value = "返回所有已审核通过的友链")
     public ResponseResult<LinkVo> getAllLink(){
         List<LinkVo> linkVoList = linkService.getAllLink();

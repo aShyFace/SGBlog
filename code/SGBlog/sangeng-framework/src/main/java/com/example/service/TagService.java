@@ -7,6 +7,8 @@ import com.example.domain.dto.TagDto;
 import com.example.domain.entity.Tag;
 import com.example.domain.vo.TagVo;
 
+import java.util.List;
+
 /**
  * 标签(Tag)表服务接口
  *
@@ -24,5 +26,7 @@ public interface TagService extends IService<Tag> {
   TagVo getTagById(Long tagId);
 
   int updateTag(TagDto tagDto);
+
+  List<TagVo> allTag();
 }
 

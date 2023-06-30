@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -35,6 +36,11 @@ public class TagController {
     @Resource
     private TagService tagService;
 
+    @GetMapping("/listAllTag")
+    public ResponseResult allTag(){
+        List<TagVo> tagVoList = tagService.allTag();
+        return ResponseResult.okResult(tagVoList);
+    }
 
     @GetMapping("/list")
     public ResponseResult tagList(@Validated(value = ValidationGroups.PageParams.class) PageParams pageParams,
@@ -66,7 +72,7 @@ public class TagController {
             return ResponseResult.errorResult(AppHttpCodeEnum.UPDATE_ERROR);
         }
     }
-    @DeleteMapping("{tagId}")
+    @DeleteMapping("/{tagId}")
     public ResponseResult deleteTag(@NotNull(message = "标签id不能为空") @Min(1L)
                                     @PathVariable Long tagId){
         log.debug("||||| deleteTag::{} |||||", tagId);
@@ -77,7 +83,7 @@ public class TagController {
             return ResponseResult.errorResult(AppHttpCodeEnum.INSTER_ERROR);
         }
     }
-    @GetMapping("{tagId}")
+    @GetMapping("/{tagId}")
     public ResponseResult updateTag(@NotNull(message = "标签id不能为空") @Min(1L)
                                     @PathVariable Long tagId){
         log.debug("||||| updateTag::{} |||||", tagId);
