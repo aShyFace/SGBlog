@@ -7,17 +7,21 @@ import com.example.common.PageParams;
 import com.example.common.PageResult;
 import com.example.constant.ArticleConstant;
 import com.example.constant.MethodConstant;
-import com.example.domain.vo.article.HotArticleVo;
+import com.example.domain.dto.AddArticleDto;
+import com.example.domain.entity.Article;
+import com.example.domain.entity.ArticleTag;
 import com.example.domain.entity.Category;
 import com.example.domain.vo.article.ArticlePreviewVo;
+import com.example.domain.vo.article.HotArticleVo;
 import com.example.mapper.ArticleMapper;
-import com.example.domain.entity.Article;
 import com.example.mapper.CategoryMapper;
 import com.example.service.ArticleService;
+import com.example.service.ArticleTagService;
 import com.example.utils.BeanCopyUtils;
 import com.example.utils.RedisCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -38,6 +42,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private ArticleMapper articleMapper;
     @Resource
     private CategoryMapper categoryMapper;
+    @Resource
+    private ArticleTagService articleTagService;
     @Resource
     private RedisCache redisCache;
 
@@ -102,12 +108,23 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return articlePreviewVo;
     }
 
-    @Override
     public int updateViewCount(Long articleId) {
         redisCache.incrementCacheMapValue(ArticleConstant.ARTICLE_VIEWCOUNT_KEY, articleId.toString(), 1L);
         return MethodConstant.SUCCESS;
     }
 
+    @Transactional
+    public int addArticle(AddArticleDto addArticleDto) {
+        Article article = BeanCopyUtils.copyBean(addArticleDto, Article.class);
+        articleMapper.insert(article);
+        Long articleId = article.getId();
+
+        List<ArticleTag> articleTagList = addArticleDto.getTags().stream().map(
+          tagId -> new ArticleTag(articleId, tagId)
+        ).collect(Collectors.toList());
+        boolean result = articleTagService.saveBatch(articleTagList);
+        return result ? MethodConstant.SUCCESS:MethodConstant.ERROR;
+    }
 
 
     // private Long getViewCountFromRedis(Long articleId){
