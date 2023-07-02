@@ -11,7 +11,13 @@ public class MenuConstant {
      * M目录 C菜单 F按钮
      */
     public static final String MENU_IS_CATALOG = "M";
+    /**
+     * M目录 C菜单 F按钮
+     */
     public static final String MENU_IS_MENU = "C";
+    /**
+     * M目录 C菜单 F按钮
+     */
     public static final String MENU_IS_BUTTON = "F";
 
     /**

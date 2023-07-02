@@ -1,28 +1,21 @@
 package com.example.service.impl;
 
-import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.lang.tree.TreeNodeConfig;
-import cn.hutool.core.lang.tree.TreeUtil;
-import cn.hutool.core.lang.tree.parser.DefaultNodeParser;
-import cn.hutool.core.lang.tree.parser.NodeParser;
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.constant.DataBaseConstant;
 import com.example.constant.MenuConstant;
+import com.example.domain.entity.Menu;
 import com.example.domain.vo.MenuVo;
 import com.example.mapper.MenuMapper;
-import com.example.domain.entity.Menu;
-import com.example.mapper.UserMapper;
 import com.example.service.MenuService;
 import com.example.service.RoleService;
-import com.example.service.UserService;
 import com.example.utils.BeanCopyUtils;
+import com.example.utils.SecurityUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -54,6 +47,52 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             Menu::getPerms
         ).collect(Collectors.toList());
         return permList;
+    }
+
+    /**
+     * 选择菜单用户id
+     *
+     * @param userId    用户id
+     * @param status    状态（默认0,表示正常使用）
+     * @param menuType1 菜单类型1（可选，M目录 C菜单(默认) F按钮）
+     * @param menuType2 菜单类型2（可选，M目录 C菜单 F按钮(默认)）
+     * @param del_flag  逻辑删除
+     * @return {@link List}<{@link List}>
+     */
+    public List<String> selectMenusByUserId(Long userId, String status, String menuType1,
+                                          String menuType2, String del_flag) {
+        if (Objects.isNull(status)){
+            status = MenuConstant.MENU_STATUS_IS_NORMAL;
+        }
+        if (Objects.isNull(menuType1)){
+            menuType1 = MenuConstant.MENU_IS_MENU;
+        }
+        if (Objects.isNull(menuType2)){
+            menuType2 = MenuConstant.MENU_IS_BUTTON;
+        }
+        if (Objects.isNull(del_flag)){
+            del_flag = DataBaseConstant.ROW_IS_NOT_DELETE;
+        }
+
+        List<Menu> menuList = menuMapper.selectMenusByUserId(userId, status, menuType1, menuType2, del_flag);
+        List<String> permList = menuList.stream().map(
+            Menu::getPerms
+        ).collect(Collectors.toList());
+        return permList;
+    }
+
+    /**
+     * 是超级用户
+     * @param permission 用户所具有的权限
+     * @return boolean
+     */
+    public boolean isRoot(String permission){
+        if (SecurityUtils.isRoot()) {
+            return true;
+        }
+        //否则  获取当前登录用户所具有的权限列表 如何判断是否存在permission
+        List<String> permissions = SecurityUtils.getLoginUser().getPermissionList();
+        return permissions.contains(permission);
     }
 
     public List<MenuVo> selectRouterMenuTreeByUserId(Long userId, boolean userIsRoot) {

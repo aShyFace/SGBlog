@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
-import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -27,6 +27,7 @@ public class LoginUser implements UserDetails {
 //    public LoginUser(User user) {
 //        this.user = user;
 //    }
+    private List<String> permissionList;
 
 //    返回权限集合
     @Override

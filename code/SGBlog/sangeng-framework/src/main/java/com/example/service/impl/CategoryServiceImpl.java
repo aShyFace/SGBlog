@@ -41,7 +41,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         List<CategoryVo> categoryVoList = BeanCopyUtils.copyBeanList(categoryList, CategoryVo.class).stream().map(
           category -> {
               category.setPid(null);
-              category.setStatus(null);
+              //category.setStatus(null);
               return category;
           }
         ).collect(Collectors.toList());

@@ -12,17 +12,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 @EnableSwagger2
-@EnableScheduling
 @SpringBootApplication
 @MapperScan("com.example.mapper")
+@EnableScheduling
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SanGengAdminApplication {
     public static void main(String[] args) {
        //这里的TestApplication 是当前工程的启动类名

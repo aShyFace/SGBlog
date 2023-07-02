@@ -17,5 +17,8 @@ public interface MenuService extends IService<Menu> {
     List<String> selectMenusByUserId(Long userId, boolean userIsRoot);
 
     List<MenuVo> selectRouterMenuTreeByUserId(Long userId, boolean userIsRoot);
+
+    List<String> selectMenusByUserId(Long userId, String status, String menuType1,
+                                          String menuType2, String del_flag);
 }
 

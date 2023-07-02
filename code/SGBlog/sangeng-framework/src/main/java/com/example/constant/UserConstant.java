@@ -10,6 +10,6 @@ public class UserConstant {
     /**
      * 用户是否为管理员
      */
-
+  public static final String USRE_IS_ADMIN = "1";
 
 }

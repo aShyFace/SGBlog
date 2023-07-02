@@ -1,5 +1,6 @@
 package com.example.utils;
 
+import com.example.constant.RoleConstant;
 import com.example.domain.entity.LoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,12 +32,12 @@ public class SecurityUtils
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
-    public static Boolean isAdmin(){
-        Long id = getLoginUser().getUser().getId();
-        return id != null && 1L == id;
+    public static Boolean isRoot(){
+        return RoleConstant.ROOT_ROLE_KEY.equals(getLoginUser().getUserRoleKey());
     }
 
     public static Long getUserId() {
         return getLoginUser().getUser().getId();
     }
+
 }
