@@ -11,7 +11,9 @@ import com.example.domain.dto.AddArticleDto;
 import com.example.domain.entity.Article;
 import com.example.domain.entity.ArticleTag;
 import com.example.domain.entity.Category;
+import com.example.domain.vo.article.ArticleManagerVo;
 import com.example.domain.vo.article.ArticlePreviewVo;
+import com.example.domain.vo.article.ArticleUpdateVo;
 import com.example.domain.vo.article.HotArticleVo;
 import com.example.mapper.ArticleMapper;
 import com.example.mapper.CategoryMapper;
@@ -22,6 +24,7 @@ import com.example.utils.RedisCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -124,6 +127,41 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         ).collect(Collectors.toList());
         boolean result = articleTagService.saveBatch(articleTagList);
         return result ? MethodConstant.SUCCESS:MethodConstant.ERROR;
+    }
+
+    public PageResult<ArticleManagerVo> allArticleList(PageParams pageParams, String title, String summary) {
+        LambdaQueryWrapper<Article> lqw = new LambdaQueryWrapper();
+        if (Objects.nonNull(title)){
+            lqw.eq(Article::getTitle, title);
+        }
+        if (StringUtils.hasText(summary)) {
+            lqw.eq(Article::getSummary , summary);
+        }
+
+        Page page = new Page(pageParams.getPageNum(), pageParams.getPageSize());
+        List<Article> articleList = page(page, lqw).getRecords();
+        List<ArticleManagerVo> articleManagerVoList = BeanCopyUtils.copyBeanList(articleList, ArticleManagerVo.class);
+        return new PageResult<>(articleManagerVoList, page.getTotal(), pageParams);
+    }
+
+    public ArticleUpdateVo getUpdateArticleById(Long id) {
+        Article article = articleMapper.selectById(id);
+        ArticleUpdateVo articleUpdateVo = BeanCopyUtils.copyBean(article, ArticleUpdateVo.class);
+        articleUpdateVo.setCategoryName(categoryMapper.selectById(article.getCategoryId()).getName());
+        List<ArticleTag> articleTagList = articleTagService.list(new LambdaQueryWrapper<ArticleTag>().eq(ArticleTag::getArticleId, article.getId()));
+        List<Long> tagList = articleTagList.stream().map(articleTag -> articleTag.getTagId()).collect(Collectors.toList());
+        return articleUpdateVo.setTags(tagList);
+    }
+
+    public int deleteArticleById(Long id) {
+        LambdaQueryWrapper<Article> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(Article::getId, id);
+        int status = MethodConstant.ERROR;
+        if (count(lqw) > 0) {
+            int i = articleMapper.deleteById(id);
+            status = i != 0 ? MethodConstant.SUCCESS:status;
+        }
+        return status;
     }
 
 

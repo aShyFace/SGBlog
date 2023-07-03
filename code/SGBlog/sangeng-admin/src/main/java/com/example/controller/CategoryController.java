@@ -46,7 +46,7 @@ public class CategoryController {
 
     @GetMapping("/listAllCategory")
     @ApiOperation(value = "返回所有分类")
-    public ResponseResult listAllCategory(){
+    public ResponseResult allCategoryList(){
         List<CategoryVo> allCategory = categoryService.getAllCategory();
         return ResponseResult.okResult(allCategory);
     }

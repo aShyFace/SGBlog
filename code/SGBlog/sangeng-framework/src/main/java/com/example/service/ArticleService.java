@@ -5,7 +5,9 @@ import com.example.common.PageParams;
 import com.example.common.PageResult;
 import com.example.domain.dto.AddArticleDto;
 import com.example.domain.entity.Article;
+import com.example.domain.vo.article.ArticleManagerVo;
 import com.example.domain.vo.article.ArticlePreviewVo;
+import com.example.domain.vo.article.ArticleUpdateVo;
 import com.example.domain.vo.article.HotArticleVo;
 
 import java.util.List;
@@ -26,5 +28,11 @@ public interface ArticleService extends IService<Article> {
   int updateViewCount(Long articleId);
 
   int addArticle(AddArticleDto addArticleDto);
+
+  PageResult<ArticleManagerVo> allArticleList(PageParams pageParams, String title, String summary);
+
+  ArticleUpdateVo getUpdateArticleById(Long id);
+
+  int deleteArticleById(Long id);
 }
 

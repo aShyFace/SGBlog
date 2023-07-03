@@ -11,14 +11,13 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 
 
-@ApiModel(value="ArticlePreviewVo对象", description="文章预览类")
+@ApiModel(value="ArticleManagerVo对象", description="后台文章管理类")
 @AllArgsConstructor
 @NoArgsConstructor
 @Repository
 @Data
-public class ArticlePreviewVo {
-    // @ApiModelProperty(value = "文章id")
-    //@NotNull(message = "文章id不能为空", groups = {ValidationGroups.ArticleQuery.class})
+public class ArticleManagerVo {
+    @ApiModelProperty(value = "id")
     private Long id;
 
     @ApiModelProperty(value = "标题")
@@ -48,5 +47,6 @@ public class ArticlePreviewVo {
     @ApiModelProperty(value = "文章内容")
     private String content;
 
-
+    @ApiModelProperty(value = "删除标志（0代表未删除，1代表已删除）")
+    private Integer delFlag;
 }

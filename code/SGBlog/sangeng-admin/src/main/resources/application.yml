@@ -30,10 +30,9 @@ logging:
   level:
     org:
       springframework:
-        security: DEBUG
+        security: INFO
     com:
-      example:
-        license: off
+      example: DEBUG
 
 
 

@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 public class AddArticleDto {
     @ApiModelProperty(value="")
-    @Null(message = "新增时id必须为空", groups = {ValidationGroups.CommentInsert.class})
+    @Null(message = "新增时id必须为空", groups = {ValidationGroups.ArticleInsert.class})
     private Long id;
 
     @ApiModelProperty(value = "标题")
