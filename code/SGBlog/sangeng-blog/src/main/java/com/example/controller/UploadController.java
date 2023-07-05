@@ -31,7 +31,7 @@ public class UploadController {
     private UploadServiceImpl uploadService;
 
     @PostMapping("/upload")
-    @ApiOperation(value="上传文件至静态资源服务器")
+    @ApiOperation(value = "上传文件至静态资源服务器")
     /* 与@Getmapping一样，方法的参数名要和from表单中的key一致，否则该参数的值为null。文件类型的数据，可以不用添加@Requestbody */
     public ResponseResult uploadFile(@NotNull MultipartFile img){
         MultipartFile file = img;

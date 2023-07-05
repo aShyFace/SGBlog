@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 
 
-@ApiModel(value="ArticlePreviewVo对象", description="文章预览类")
+@ApiModel(value = "ArticlePreviewVo对象", description = "文章预览类")
 @AllArgsConstructor
 @NoArgsConstructor
 @Repository

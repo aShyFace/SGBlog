@@ -35,7 +35,6 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
 
     public PageResult tagList(PageParams pageParams, String name, String remark) {
         LambdaQueryWrapper<Tag> lqw = new LambdaQueryWrapper();
-//        lqw.eq(Tag::getName, "Java");
         if (Objects.nonNull(name)){
             lqw.eq(Tag::getName, name);
         }
@@ -51,14 +50,10 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
 
 
     public int addTag(TagDto tagDto) {
-        LambdaQueryWrapper<Tag> lqw = new LambdaQueryWrapper<>();
         int status = MethodConstant.ERROR;
         if (Strings.hasText(tagDto.getName())){
-            lqw.eq(Tag::getName, tagDto.getName());
-            if (count(lqw) > 0){
-                Tag tag = BeanCopyUtils.copyBean(tagDto, Tag.class);
-                status = save(tag) ? MethodConstant.SUCCESS : MethodConstant.ERROR;
-            }
+            Tag tag = BeanCopyUtils.copyBean(tagDto, Tag.class);
+            status = save(tag) ? MethodConstant.SUCCESS : MethodConstant.ERROR;
         }
         return status;
     }

@@ -22,25 +22,25 @@ import javax.validation.constraints.NotNull;
  * @author Zhi
  * @since 2023-03-30 11:13:05
  */
-@ApiModel(value="用户信息实体类")
+@ApiModel(value = "用户信息实体类")
 @AllArgsConstructor
 @NoArgsConstructor
 @Repository
 @Data
 public class UserInfoDto {
-    @ApiModelProperty(value="用户名")
+    @ApiModelProperty(value = "用户名")
     private String userName;
 
-    @ApiModelProperty(value="昵称")
+    @ApiModelProperty(value = "昵称")
     private String nickName;
 
-    @ApiModelProperty(value="邮箱")
+    @ApiModelProperty(value = "邮箱")
     private String email;
 
-    @ApiModelProperty(value="用户性别（0男，1女，2未知）")
+    @ApiModelProperty(value = "用户性别（0男，1女，2未知）")
     private String sex;
 
-    @ApiModelProperty(value="头像")
+    @ApiModelProperty(value = "头像")
     private String avatar;
 
 }

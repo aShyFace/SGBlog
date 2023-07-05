@@ -37,5 +37,26 @@ public class BeanCopyUtils {
         return collect;
     }
 
-
+//    public static <T> T copyBeanSuper(Object src, Class<T> clazz) {
+////        newInstance()调用的是类的无参构造方法，所以用之前得确定这个类有无参构造
+//        T result = null;
+//        try {
+//            result = clazz.newInstance();
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//            System.exit(0);
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//            System.exit(0);
+//        }
+//        BeanUtils.copyProperties(src, result);
+//        return result;
+//    }
+//
+//    public static <O,E> List<E> copyBeanListSuper(List<O> list, Class<E> clazz, ){
+//        List<E> collect = list.stream()
+//                .map(o -> copyBean(o, clazz))
+//                .collect(Collectors.toList());
+//        return collect;
+//    }
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 
-@ApiModel(value="HotArticleVo对象", description="热门文章类")
+@ApiModel(value = "HotArticleVo对象", description = "热门文章类")
 @AllArgsConstructor
 @NoArgsConstructor
 @Repository

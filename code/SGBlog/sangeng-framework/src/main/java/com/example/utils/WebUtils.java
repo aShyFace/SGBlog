@@ -35,7 +35,7 @@ public class WebUtils
         String mimeType = context.getMimeType(filename);//获取文件的mime类型
         response.setHeader("content-type",mimeType);
         String fname= URLEncoder.encode(filename,"UTF-8");
-        response.setHeader("Content-disposition","attachment; filename="+fname);
+        response.setHeader("Content-disposition","attachment; filename = "+fname);
 
 //        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 //        response.setCharacterEncoding("utf-8");

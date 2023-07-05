@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 
 
-@ApiModel(value="ArticleManagerVo对象", description="后台文章管理类")
+@ApiModel(value = "ArticleManagerVo对象", description = "后台文章管理类")
 @AllArgsConstructor
 @NoArgsConstructor
 @Repository

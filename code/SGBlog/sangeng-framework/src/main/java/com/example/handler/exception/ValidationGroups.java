@@ -33,4 +33,11 @@ public class ValidationGroups {
 
     public interface TagInsert {}
     public interface TagUpdate {}
+
+    public interface MenuInsert {}
+    public interface MenuUpdate {}
+
+    public interface RoleInsert {}
+    public interface RoleUpdate {}
+    public interface RoleStatusUpdate {}
 }

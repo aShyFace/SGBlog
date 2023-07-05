@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 
-@ApiModel(value="ArticleUpdateVo对象", description="后台文章更新类")
+@ApiModel(value = "ArticleUpdateVo对象", description = "后台文章更新类")
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor

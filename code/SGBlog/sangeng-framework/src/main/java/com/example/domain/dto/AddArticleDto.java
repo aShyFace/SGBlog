@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class AddArticleDto {
-    @ApiModelProperty(value="")
+    @ApiModelProperty(value = "")
     @Null(message = "新增时id必须为空", groups = {ValidationGroups.ArticleInsert.class})
     private Long id;
 

@@ -8,23 +8,23 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 /**
- * 文章标签关联表(ArticleTag)表实体类
+ * 角色和菜单关联表(RoleMenu)表实体类
  *
  * @author Zhi
- * @since 2023-07-01 16:54:02
+ * @since 2023-07-05 10:39:12
  */
-@TableName(value = "sg_article_tag")
+@TableName(value="sys_role_menu")
 @SuppressWarnings(value={"serial", "unused"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Repository
-public class ArticleTag {
-    //@TableId(value = "articleId") //文章id
-    private Long articleId;
+public class RoleMenu {
+    //@TableId(value = "roleId") //角色ID
+    private Long roleId;
 
-    //@TableId(value = "tagId") //标签id
-    private Long tagId;
+    //@TableId(value = "menuId") //菜单ID
+    private Long menuId;
 
 
 

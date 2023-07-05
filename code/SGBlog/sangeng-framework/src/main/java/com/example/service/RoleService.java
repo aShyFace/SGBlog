@@ -1,7 +1,11 @@
 package com.example.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.common.PageParams;
+import com.example.common.PageResult;
+import com.example.domain.dto.RoleDto;
 import com.example.domain.entity.Role;
+import com.example.domain.vo.RolePreviewVo;
 
 import java.util.List;
 
@@ -13,7 +17,20 @@ import java.util.List;
  */
 public interface RoleService extends IService<Role> {
 
-    List<String> selectRoleKeyByUserId(Long userId);
+  List<String> selectRoleKeyByUserId(Long userId);
 
+
+
+  RolePreviewVo getRoleById(Long id);
+
+  int changeRoleStatus(Long roleId, String status);
+
+  int addRole(RoleDto roleDto);
+
+  int deleteRoleById(Long id);
+
+  PageResult<RolePreviewVo> allRoleList(PageParams pageParams, String roleName, String status);
+
+  int updateRole(RoleDto roleDto);
 }
 

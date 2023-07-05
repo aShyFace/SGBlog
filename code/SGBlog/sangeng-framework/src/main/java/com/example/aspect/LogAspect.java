@@ -46,7 +46,7 @@ public class LogAspect {
             handleAfter(joinPoint, ret);
         }finally {
             // 结束后换行
-            log.info("=======End=======" + System.lineSeparator());
+            log.info("=======End====== = " + System.lineSeparator());
         }
         return ret;
     }
@@ -86,7 +86,7 @@ public class LogAspect {
     //     Method targetMethod = targetCls.getDeclaredMethod(ms.getName(), ms.getParameterTypes());
     //     Annotation requiredLog = targetMethod.getAnnotation(logClazz);
     //     // String operation = requiredLog.value();
-    //     // System.out.println("targetMethod="+targetMethod);
+    //     // System.out.println("targetMethod = "+targetMethod);
     //     return null;
     // }
 

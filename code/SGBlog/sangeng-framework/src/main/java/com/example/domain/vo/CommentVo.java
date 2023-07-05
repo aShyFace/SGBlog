@@ -27,43 +27,43 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @Data
 public class CommentVo {
-    @ApiModelProperty(value="")
+    @ApiModelProperty(value = "")
     private Long id;
 
-    @ApiModelProperty(value="评论类型（0代表文章评论，1代表友链评论）")
+    @ApiModelProperty(value = "评论类型（0代表文章评论，1代表友链评论）")
     private String type;
 
-    @ApiModelProperty(value="文章id")
+    @ApiModelProperty(value = "文章id")
     private Long articleId;
 
     // 该评论是哪条评论的子评论
-    @ApiModelProperty(value="根评论id")
+    @ApiModelProperty(value = "根评论id")
     private Long rootId;
 
-    @ApiModelProperty(value="评论内容")
+    @ApiModelProperty(value = "评论内容")
     private String content;
 
     // 该评论回复了哪条评论
-    @ApiModelProperty(value="回复目标评论id")
+    @ApiModelProperty(value = "回复目标评论id")
     private Long toCommentId;
 
     // 回复的哪条评论是谁的（用户名）
-    @ApiModelProperty(value="所回复的目标评论的user id")
+    @ApiModelProperty(value = "所回复的目标评论的user id")
     private Long toCommentUserId;
-    @ApiModelProperty(value="所回复的目标评论的user name")
+    @ApiModelProperty(value = "所回复的目标评论的user name")
     private String toCommentUserName;
 
     // 该评论是谁发表的
-    @ApiModelProperty(value="发表该评论的user id")
+    @ApiModelProperty(value = "发表该评论的user id")
     private Long createBy;
-    @ApiModelProperty(value="发表该评论的user name")
+    @ApiModelProperty(value = "发表该评论的user name")
     public String username;
 
     // 子评论
-    @ApiModelProperty(value="该评论的子评论")
+    @ApiModelProperty(value = "该评论的子评论")
     private List children;
 
-    @ApiModelProperty(value="该评论的发表时间")
+    @ApiModelProperty(value = "该评论的发表时间")
     private Date createTime;
 
 }

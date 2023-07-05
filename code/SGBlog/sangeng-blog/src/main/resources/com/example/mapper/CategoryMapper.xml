@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mapper.CategoryMapper">
+<mapper namespace = "com.example.mapper.CategoryMapper">
 
-    <resultMap type="com.example.domain.entity.Category" id="CategoryMap">
-        <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="pid" column="pid" jdbcType="INTEGER"/>
-        <result property="description" column="description" jdbcType="VARCHAR"/>
-        <result property="status" column="status" jdbcType="VARCHAR"/>
-        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
-        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    <resultMap type = "com.example.domain.entity.Category" id = "CategoryMap">
+        <result property = "id" column = "id" jdbcType = "INTEGER"/>
+        <result property = "name" column = "name" jdbcType = "VARCHAR"/>
+        <result property = "pid" column = "pid" jdbcType = "INTEGER"/>
+        <result property = "description" column = "description" jdbcType = "VARCHAR"/>
+        <result property = "status" column = "status" jdbcType = "VARCHAR"/>
+        <result property = "createBy" column = "create_by" jdbcType = "INTEGER"/>
+        <result property = "createTime" column = "create_time" jdbcType = "TIMESTAMP"/>
+        <result property = "updateBy" column = "update_by" jdbcType = "INTEGER"/>
+        <result property = "updateTime" column = "update_time" jdbcType = "TIMESTAMP"/>
+        <result property = "delFlag" column = "del_flag" jdbcType = "INTEGER"/>
     </resultMap>
 
-    <select id="getCategoryList" resultType="com.example.domain.entity.Category">
+    <select id = "getCategoryList" resultType = "com.example.domain.entity.Category">
 -- status='0'表示已发表的文章；为1表示文章只是草稿，还在编辑中
         select * from sg_category where
                 id in (select distinct category_id from sg_article where status='0' and del_flag=0)
