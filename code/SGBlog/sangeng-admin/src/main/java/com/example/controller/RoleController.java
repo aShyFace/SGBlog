@@ -58,7 +58,7 @@ public class RoleController {
                                            @RequestBody RoleDto roleDto){
         log.debug("||||| {}::{} |||||", new Exception().getStackTrace()[0].getMethodName(),
             roleDto.toString());
-        int ret = roleService.changeRoleStatus(roleDto.getRoleId(), roleDto.getStatus());
+        int ret = roleService.changeRoleStatus(roleDto.getId(), roleDto.getStatus());
         if (MethodConstant.SUCCESS == ret) {
             return ResponseResult.okResult();
         }else {
@@ -75,7 +75,7 @@ public class RoleController {
         if (MethodConstant.SUCCESS == ret) {
             return ResponseResult.okResult();
         }else {
-            return ResponseResult.errorResult(AppHttpCodeEnum.INSTER_ERROR);
+            return ResponseResult.errorResult(AppHttpCodeEnum.UPDATE_ERROR);
         }
     }
 

@@ -33,6 +33,9 @@ public class RolePreviewVo {
   @ApiModelProperty(value = "角色状态（0正常 1停用）")
   private String status;
 
+  @TableField(value = "remark") //"备注"
+  private String remark;
+
   @TableField(value = "create_time", fill = FieldFill.INSERT) //"创建时间"
   private Date createTime;
 }

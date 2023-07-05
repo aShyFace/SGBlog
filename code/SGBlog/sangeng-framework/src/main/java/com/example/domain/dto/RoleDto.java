@@ -28,7 +28,7 @@ import java.util.List;
 public class RoleDto {
     @ApiModelProperty(value = "角色ID")
     @NotNull(message = "修改status时，id不能为空", groups = ValidationGroups.RoleStatusUpdate.class)
-    private Long roleId;
+    private Long Id;
 
     @ApiModelProperty(value = "角色名称")
     private String roleName;
