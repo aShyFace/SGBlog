@@ -6,6 +6,7 @@ import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeNodeConfig;
 import cn.hutool.core.lang.tree.TreeUtil;
 import com.alibaba.fastjson.JSON;
+import com.github.jeffreyning.mybatisplus.conf.EnableMPP;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -17,21 +18,23 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
 
+@EnableMPP
 @EnableSwagger2
-@SpringBootApplication
-@MapperScan("com.example.mapper")
 @EnableScheduling
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@MapperScan("com.example.mapper")
+@SpringBootApplication
 public class SanGengAdminApplication {
     public static void main(String[] args) {
-       //这里的TestApplication 是当前工程的启动类名
-        SpringApplication springApplication = new SpringApplication(SanGengAdminApplication.class);
-        //关闭启动logo和启动日志的输出
-        springApplication.setBannerMode(Banner.Mode.OFF);
-        ConfigurableApplicationContext run = springApplication.run(args);
+      //SpringApplication.run(SpringBootStudyApplication.class,args);
+      //这里的TestApplication 是当前工程的启动类名
+      SpringApplication springApplication = new SpringApplication(SanGengAdminApplication.class);
+      //关闭启动logo和启动日志的输出
+      springApplication.setBannerMode(Banner.Mode.OFF);
+      ConfigurableApplicationContext run = springApplication.run(args);
 
 
-       // testGrammar();
+      // testGrammar();
     }
 
     public static void testGrammar(){

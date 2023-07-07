@@ -6,6 +6,7 @@ import com.example.common.PageResult;
 import com.example.constant.MethodConstant;
 import com.example.domain.ResponseResult;
 import com.example.domain.dto.RoleDto;
+import com.example.domain.vo.RoleManegerVo;
 import com.example.domain.vo.RolePreviewVo;
 import com.example.enums.AppHttpCodeEnum;
 import com.example.handler.exception.ValidationGroups;
@@ -16,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 角色信息表(Role)表控制层
@@ -38,11 +40,18 @@ public class RoleController {
 
 
     @GetMapping("/list")
-    public ResponseResult getRoleList(@Validated(value = ValidationGroups.PageParams.class) PageParams pageParams,
+    public ResponseResult getRolePage(@Validated(value = ValidationGroups.PageParams.class) PageParams pageParams,
                                       String roleName, String status){
         log.debug("||||| {}::{}, {}, {} |||||", new Exception().getStackTrace()[0].getMethodName(), pageParams.toString(), roleName, status);
-        PageResult<RolePreviewVo> rolePreviewVoPageResult = roleService.allRoleList(pageParams, roleName, status);
+        PageResult<RolePreviewVo> rolePreviewVoPageResult = roleService.getRolePage(pageParams, roleName, status);
         return ResponseResult.okResult(rolePreviewVoPageResult);
+    }
+
+    @GetMapping("/listAllRole")
+    public ResponseResult getAllRoleList(){
+        log.debug("||||| {} |||||", new Exception().getStackTrace()[0].getMethodName());
+        List<RoleManegerVo> roleManegerVoList = roleService.allRoleList();
+        return ResponseResult.okResult(roleManegerVoList);
     }
 
     @GetMapping("{id}")
@@ -58,11 +67,11 @@ public class RoleController {
                                            @RequestBody RoleDto roleDto){
         log.debug("||||| {}::{} |||||", new Exception().getStackTrace()[0].getMethodName(),
             roleDto.toString());
-        int ret = roleService.changeRoleStatus(roleDto.getId(), roleDto.getStatus());
+        int ret = roleService.changeRoleStatus(roleDto.getRoleId(), roleDto.getStatus());
         if (MethodConstant.SUCCESS == ret) {
             return ResponseResult.okResult();
         }else {
-            return ResponseResult.errorResult(AppHttpCodeEnum.INSTER_ERROR);
+            return ResponseResult.errorResult(AppHttpCodeEnum.UPDATE_ERROR);
         }
     }
 
@@ -97,7 +106,7 @@ public class RoleController {
         if (MethodConstant.SUCCESS == ret) {
             return ResponseResult.okResult();
         }else {
-            return ResponseResult.errorResult(AppHttpCodeEnum.INSTER_ERROR);
+            return ResponseResult.errorResult(AppHttpCodeEnum.DELETE_ERROR);
         }
     }
 

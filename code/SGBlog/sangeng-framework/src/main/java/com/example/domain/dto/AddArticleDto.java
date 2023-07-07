@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.util.List;
 
@@ -29,11 +30,11 @@ public class AddArticleDto {
     private String summary;
 
     @ApiModelProperty(value = "所属分类")
-    @NotBlank(message = "所属分类不能为空", groups = {ValidationGroups.ArticleInsert.class})
-    private String categoryId;
+    @NotNull(message = "所属分类不能为空", groups = {ValidationGroups.ArticleInsert.class})
+    private Long categoryId;
 
     @ApiModelProperty(value = "所属标签")
-    @NotBlank(message = "所属标签不能为空", groups = {ValidationGroups.ArticleInsert.class})
+    @NotNull(message = "所属标签不能为空", groups = {ValidationGroups.ArticleInsert.class})
     private List<Long> tags;
 
     @ApiModelProperty(value = "缩略图")

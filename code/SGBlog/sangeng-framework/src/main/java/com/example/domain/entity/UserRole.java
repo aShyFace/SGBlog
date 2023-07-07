@@ -10,27 +10,28 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 /**
- * 文章标签关联表(ArticleTag)表实体类
+ * 用户和角色关联表(UserRole)表实体类
  *
  * @author Zhi
- * @since 2023-07-01 16:54:02
+ * @since 2023-07-06 10:47:50
  */
-@TableName(value = "sg_article_tag")
+@TableName(value="sys_user_role")
 @SuppressWarnings(value={"serial", "unused"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Repository
-public class ArticleTag {
+public class UserRole {
     @MppMultiId
-    @TableField(value = "article_id")
-    //@TableId(value = "articleId") //文章id
-    private Long articleId;
+    @TableField(value = "user_id")
+    //@TableId(value = "userId") //用户ID
+    private Long userId;
 
     @MppMultiId
-    @TableField(value = "tag_id")
-    //@TableId(value = "tagId") //标签id
-    private Long tagId;
+    @TableField(value = "role_id")
+    //@TableId(value = "roleId") //角色ID
+    private Long roleId;
+
 
 }
 

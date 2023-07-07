@@ -41,8 +41,21 @@ public class ArticleController {
     @PostMapping("")
     public ResponseResult addArticle(@Validated(value = ValidationGroups.ArticleInsert.class)
                                      @RequestBody AddArticleDto addArticleDto){
-        //Article article = BeanCopyUtils.copyBean(addArticleDto, Article.class);
+        log.debug("||||| {}::{} |||||", new Exception().getStackTrace()[0].getMethodName(),
+            addArticleDto.toString());
         int ret = articleService.addArticle(addArticleDto);
+        if (MethodConstant.SUCCESS == ret) {
+            return ResponseResult.okResult();
+        }else {
+            return ResponseResult.errorResult(AppHttpCodeEnum.INSTER_ERROR);
+        }
+    }
+
+    @PutMapping("")
+    public ResponseResult updateArticle(@RequestBody AddArticleDto addArticleDto){
+        log.debug("||||| {}::{} |||||", new Exception().getStackTrace()[0].getMethodName(),
+          addArticleDto.toString());
+        int ret = articleService.updateArticle(addArticleDto);
         if (MethodConstant.SUCCESS == ret) {
             return ResponseResult.okResult();
         }else {
@@ -62,7 +75,7 @@ public class ArticleController {
         if (MethodConstant.SUCCESS == ret) {
             return ResponseResult.okResult();
         }else {
-            return ResponseResult.errorResult(AppHttpCodeEnum.INSTER_ERROR);
+            return ResponseResult.errorResult(AppHttpCodeEnum.DELETE_ERROR);
         }
     }
 

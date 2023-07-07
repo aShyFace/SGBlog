@@ -23,6 +23,7 @@ public class ValidationGroups {
 
     public interface UserQuery {}
     public interface UserInsert {}
+    public interface UserAdminInsert {}
     public interface UserUpdate {}
     public interface UserLoginCode {}
     public interface UserLoginPassword {}

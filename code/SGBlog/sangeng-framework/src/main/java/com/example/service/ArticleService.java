@@ -34,5 +34,7 @@ public interface ArticleService extends IService<Article> {
   ArticleUpdateVo getUpdateArticleById(Long id);
 
   int deleteArticleById(Long id);
+
+  int updateArticle(AddArticleDto addArticleDto);
 }
 

@@ -80,7 +80,7 @@ public class MenuController {
     if (MethodConstant.SUCCESS == ret) {
       return ResponseResult.okResult();
     }else if (MethodConstant.ERROR == ret) {
-      return ResponseResult.errorResult(AppHttpCodeEnum.INSTER_ERROR);
+      return ResponseResult.errorResult(AppHttpCodeEnum.DELETE_ERROR);
     }else {
       return ResponseResult.errorResult(599, "存在子菜单，不允许删除");
     }

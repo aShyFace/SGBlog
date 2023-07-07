@@ -10,4 +10,6 @@ public class RoleConstant {
     public static final String ROOT_ROLE_KEY = "admin";
     public static final String ADMIN_ROLE_KEY = "need_query";
     public static final String USER_ROLE_KEY = "user";
+
+    public static final String ROLE_STATUS_IS_NORMAL = "0";
 }

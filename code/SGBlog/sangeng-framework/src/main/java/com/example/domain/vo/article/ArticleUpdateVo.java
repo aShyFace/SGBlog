@@ -30,10 +30,7 @@ public class ArticleUpdateVo {
   private String summary;
 
   @ApiModelProperty(value = "分类id")
-  private String categoryId;
-
-  @ApiModelProperty(value = "所属分类")
-  private String categoryName;
+  private Long categoryId;
 
   @ApiModelProperty(value = "缩略图")
   private String thumbnail;

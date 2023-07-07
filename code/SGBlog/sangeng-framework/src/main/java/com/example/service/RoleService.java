@@ -5,9 +5,11 @@ import com.example.common.PageParams;
 import com.example.common.PageResult;
 import com.example.domain.dto.RoleDto;
 import com.example.domain.entity.Role;
+import com.example.domain.vo.RoleManegerVo;
 import com.example.domain.vo.RolePreviewVo;
 
 import java.util.List;
+
 
 /**
  * 角色信息表(Role)表服务接口
@@ -29,8 +31,10 @@ public interface RoleService extends IService<Role> {
 
   int deleteRoleById(Long id);
 
-  PageResult<RolePreviewVo> allRoleList(PageParams pageParams, String roleName, String status);
+  PageResult<RolePreviewVo> getRolePage(PageParams pageParams, String roleName, String status);
 
   int updateRole(RoleDto roleDto);
+
+  List<RoleManegerVo> allRoleList();
 }
 

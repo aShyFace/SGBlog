@@ -1,7 +1,9 @@
 package com.example.domain.entity;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.jeffreyning.mybatisplus.anno.MppMultiId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,15 +22,15 @@ import org.springframework.stereotype.Repository;
 @Data
 @Repository
 public class RoleMenu {
+    @MppMultiId
+    @TableField(value = "role_id")
     //@TableId(value = "roleId") //角色ID
     private Long roleId;
 
+    @MppMultiId
+    @TableField(value = "menu_id")
     //@TableId(value = "menuId") //菜单ID
     private Long menuId;
-
-
-
-
 
 }
 

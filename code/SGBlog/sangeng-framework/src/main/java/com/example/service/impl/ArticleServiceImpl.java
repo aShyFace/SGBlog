@@ -16,6 +16,7 @@ import com.example.domain.vo.article.ArticlePreviewVo;
 import com.example.domain.vo.article.ArticleUpdateVo;
 import com.example.domain.vo.article.HotArticleVo;
 import com.example.mapper.ArticleMapper;
+import com.example.mapper.ArticleTagMapper;
 import com.example.mapper.CategoryMapper;
 import com.example.service.ArticleService;
 import com.example.service.ArticleTagService;
@@ -47,6 +48,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private CategoryMapper categoryMapper;
     @Resource
     private ArticleTagService articleTagService;
+    @Resource
+    private ArticleTagMapper articleTagMapper;
     @Resource
     private RedisCache redisCache;
 
@@ -116,17 +119,31 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return MethodConstant.SUCCESS;
     }
 
+
     @Transactional
-    public int addArticle(AddArticleDto addArticleDto) {
+    public int updateArticle(AddArticleDto addArticleDto) {
         Article article = BeanCopyUtils.copyBean(addArticleDto, Article.class);
-        articleMapper.insert(article);
+        int i = articleMapper.updateById(article);
         Long articleId = article.getId();
 
         List<ArticleTag> articleTagList = addArticleDto.getTags().stream().map(
           tagId -> new ArticleTag(articleId, tagId)
         ).collect(Collectors.toList());
-        boolean result = articleTagService.saveBatch(articleTagList);
-        return result ? MethodConstant.SUCCESS:MethodConstant.ERROR;
+        articleTagService.saveOrUpdateBatchByMultiId(articleTagList);
+        return MethodConstant.ERROR != i ? MethodConstant.SUCCESS:MethodConstant.ERROR;
+    }
+
+    @Transactional
+    public int addArticle(AddArticleDto addArticleDto) {
+        Article article = BeanCopyUtils.copyBean(addArticleDto, Article.class);
+        int i = articleMapper.insert(article);
+        Long articleId = article.getId();
+
+        List<ArticleTag> articleTagList = addArticleDto.getTags().stream().map(
+          tagId -> new ArticleTag(articleId, tagId)
+        ).collect(Collectors.toList());
+        articleTagService.saveBatch(articleTagList);
+        return MethodConstant.ERROR != i ? MethodConstant.SUCCESS:MethodConstant.ERROR;
     }
 
     public PageResult<ArticleManagerVo> allArticleList(PageParams pageParams, String title, String summary) {
@@ -144,26 +161,28 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return new PageResult<>(articleManagerVoList, page.getTotal(), pageParams);
     }
 
+    @Transactional
     public ArticleUpdateVo getUpdateArticleById(Long id) {
         Article article = articleMapper.selectById(id);
         ArticleUpdateVo articleUpdateVo = BeanCopyUtils.copyBean(article, ArticleUpdateVo.class);
-        articleUpdateVo.setCategoryName(categoryMapper.selectById(article.getCategoryId()).getName());
+        //String categoryName = categoryMapper.selectById(article.getCategoryId()).getName();
+        //articleUpdateVo.setCategoryName(categoryName);
         List<ArticleTag> articleTagList = articleTagService.list(new LambdaQueryWrapper<ArticleTag>().eq(ArticleTag::getArticleId, article.getId()));
         List<Long> tagList = articleTagList.stream().map(articleTag -> articleTag.getTagId()).collect(Collectors.toList());
         return articleUpdateVo.setTags(tagList);
     }
 
+    @Transactional
     public int deleteArticleById(Long id) {
         LambdaQueryWrapper<Article> lqw = new LambdaQueryWrapper<>();
         lqw.eq(Article::getId, id);
-        int status = MethodConstant.ERROR;
         if (count(lqw) > 0) {
-            int i = articleMapper.deleteById(id);
-            status = i != 0 ? MethodConstant.SUCCESS:status;
+            articleMapper.deleteById(id);
+            LambdaQueryWrapper<ArticleTag> queryWrapper = new LambdaQueryWrapper<>();
+            articleTagService.getBaseMapper().delete(queryWrapper.eq(ArticleTag::getArticleId, id));
         }
-        return status;
+        return MethodConstant.SUCCESS;
     }
-
 
     // private Long getViewCountFromRedis(Long articleId){
     //     Map<String, Integer> viewCountMap = redisCache.getCacheMap(ArticleConstant.ARTICLE_VIEWCOUNT_KEY);

@@ -80,7 +80,7 @@ public class TagController {
         if (MethodConstant.SUCCESS == status) {
             return ResponseResult.okResult();
         }else {
-            return ResponseResult.errorResult(AppHttpCodeEnum.INSTER_ERROR);
+            return ResponseResult.errorResult(AppHttpCodeEnum.DELETE_ERROR);
         }
     }
     @GetMapping("/{tagId}")

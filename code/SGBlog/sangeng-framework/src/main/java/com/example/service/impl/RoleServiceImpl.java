@@ -12,6 +12,7 @@ import com.example.constant.RoleConstant;
 import com.example.domain.dto.RoleDto;
 import com.example.domain.entity.Role;
 import com.example.domain.entity.RoleMenu;
+import com.example.domain.vo.RoleManegerVo;
 import com.example.domain.vo.RolePreviewVo;
 import com.example.mapper.RoleMapper;
 import com.example.service.RoleMenuService;
@@ -69,7 +70,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    public PageResult<RolePreviewVo> allRoleList(PageParams pageParams, String roleName, String status) {
+    public PageResult<RolePreviewVo> getRolePage(PageParams pageParams, String roleName, String status) {
         LambdaQueryWrapper<Role> lqw = new LambdaQueryWrapper<Role>().orderByAsc(Role::getRoleSort);
         if (Objects.nonNull(roleName)){
             lqw.like(Role::getRoleName, roleName);
@@ -83,37 +84,51 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         return new PageResult<>(rolePreviewVoList, page.getTotal(), pageParams);
     }
 
-    @Override
+    @Transactional
     public int updateRole(RoleDto roleDto) {
         Role role = BeanCopyUtils.copyBean(roleDto, Role.class);
         int ret = roleMapper.updateById(role);
-        return ret;
+
+        List<RoleMenu> roleMenuList = roleDto.getMenuIds().stream().map(
+          menuId -> new RoleMenu(role.getId(), menuId)
+        ).collect(Collectors.toList());
+        roleMenuService.saveOrUpdateBatchByMultiId(roleMenuList);
+        return MethodConstant.ERROR != ret ? MethodConstant.SUCCESS:MethodConstant.SUCCESS;
+    }
+
+    @Override
+    public List<RoleManegerVo> allRoleList() {
+        LambdaQueryWrapper<Role> lqw = new LambdaQueryWrapper<>();
+        List<Role> roleList = roleMapper.selectList(lqw.eq(Role::getStatus, RoleConstant.ROLE_STATUS_IS_NORMAL));
+        List<RoleManegerVo> roleManegerVoList = BeanCopyUtils.copyBeanList(roleList, RoleManegerVo.class);
+        return roleManegerVoList;
     }
 
     @Transactional
     public int addRole(RoleDto roleDto) {
         Role role = BeanCopyUtils.copyBean(roleDto, Role.class);
-        roleMapper.insert(role);
-        Long roleId = role.getId();
+        int ret = roleMapper.insert(role);
 
+        Long roleId = role.getId();
         List<RoleMenu> roleMenuList = roleDto.getMenuIds().stream().map(
           menuId -> new RoleMenu(roleId, menuId)
         ).collect(Collectors.toList());
-        boolean ret = roleMenuService.saveBatch(roleMenuList);
-        return ret ? MethodConstant.SUCCESS:MethodConstant.ERROR;
+        roleMenuService.saveBatch(roleMenuList);
+        return MethodConstant.ERROR != ret ? MethodConstant.SUCCESS:MethodConstant.ERROR;
     }
 
-    @Override
+    @Transactional
     public int deleteRoleById(Long id) {
         LambdaQueryWrapper<Role> lqw = new LambdaQueryWrapper<>();
         lqw.eq(Role::getId, id);
-        int status = MethodConstant.ERROR;
         if (count(lqw) > 0){ // 大于0表示未删除
-            int i = roleMapper.deleteById(id); //逻辑删除
-            status = i != 0 ? MethodConstant.SUCCESS:status;
+            roleMapper.deleteById(id); //逻辑删除
+            LambdaQueryWrapper<RoleMenu> queryWrapper = new LambdaQueryWrapper<>();
+            roleMenuService.getBaseMapper().delete(queryWrapper.eq(RoleMenu::getRoleId, id));
         }
-        return status;
+        return MethodConstant.SUCCESS;
     }
+
 
 
     // public boolean userIsRoot(Long userId) {
