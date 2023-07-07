@@ -1,7 +1,5 @@
 package com.example.constant;
 
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
-
 /**
  * @ClassName: LinkConstant
  * @Description: 友链相关字面量
@@ -13,4 +11,5 @@ public class LinkConstant {
      * 友链是否通过审核
      * */
     public static final int LINK_IS_VERIFIED = 0;
+    public static final int LINK_STATUS_IS_NORMAL = 0;
 }

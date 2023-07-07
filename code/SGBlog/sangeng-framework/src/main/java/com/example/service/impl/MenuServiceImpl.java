@@ -101,7 +101,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             lqw.like(Menu::getMenuName, menuName);
         }
         if (StringUtils.hasText(status)) {
-            lqw.eq(Menu::getRemark, status);
+            lqw.eq(Menu::getStatus, status);
         }
         List<Menu> menuList = menuMapper.selectList(lqw.orderByAsc(Menu::getOrderNum).orderByAsc(Menu::getParentId));
         List<MenuManagerVo> menuManagerVoList = BeanCopyUtils.copyBeanList(menuList, MenuManagerVo.class);

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 @NoArgsConstructor
 @Repository
 @Data
-public class LinkVo {
+public class LinkPreviewVo {
     @ApiModelProperty(value = "")
     private Long id;
 
@@ -34,15 +34,6 @@ public class LinkVo {
     @ApiModelProperty(value = "描述信息")
     private String description;
 
-    //private String status;
-//
-//    private Long createBy;
-//
-//    private Date createTime;
-//
-//    private Long updateBy;
-//
-//    private Date updateTime;
-//
-//    private Integer delFlag;
+    @ApiModelProperty(value = "0正常，1停用")
+    private String status;
 }

@@ -466,10 +466,10 @@
               </option>
               <option name="name" value="SgLink" />
               <option name="preName" value="sg" />
-              <option name="saveModelName" value="sangeng-blog" />
+              <option name="saveModelName" value="sangeng-admin" />
               <option name="savePackageName" value="com.example" />
-              <option name="savePath" value="./sangeng-blog/src/main/java/com/example" />
-              <option name="templateGroupName" value="MybatisPlus" />
+              <option name="savePath" value="./sangeng-admin/src/main/java/com/example" />
+              <option name="templateGroupName" value="My-Tamplate" />
             </TableInfoDTO>
           </value>
         </entry>

@@ -1,11 +1,14 @@
-package com.example.domain.vo;
+package com.example.domain.dto;
 
+import com.example.handler.exception.ValidationGroups;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @ClassName: LinkVo
@@ -18,8 +21,9 @@ import org.springframework.stereotype.Repository;
 @NoArgsConstructor
 @Repository
 @Data
-public class LinkVo {
-    @ApiModelProperty(value = "")
+public class LinkUpdateDto {
+    @ApiModelProperty(value = "id")
+    @NotNull(message = "id不能为空", groups = ValidationGroups.LinkUpdate.class)
     private Long id;
 
     @ApiModelProperty(value = "友链名称")
@@ -34,15 +38,6 @@ public class LinkVo {
     @ApiModelProperty(value = "描述信息")
     private String description;
 
-    //private String status;
-//
-//    private Long createBy;
-//
-//    private Date createTime;
-//
-//    private Long updateBy;
-//
-//    private Date updateTime;
-//
-//    private Integer delFlag;
+    @ApiModelProperty(value = "0正常，1停用")
+    private String status;
 }

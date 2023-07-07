@@ -41,4 +41,8 @@ public class ValidationGroups {
     public interface RoleInsert {}
     public interface RoleUpdate {}
     public interface RoleStatusUpdate {}
+
+    public interface LinkInsert {}
+    public interface LinkUpdate {}
+
 }
