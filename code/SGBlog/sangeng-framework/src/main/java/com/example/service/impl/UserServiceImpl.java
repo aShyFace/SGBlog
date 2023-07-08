@@ -136,6 +136,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         // 添加用户
+        String password = userAddDto.getPassword();
+        userAddDto.setPassword(passwordEncoder.encode(password));
         User user = BeanCopyUtils.copyBean(userAddDto, User.class);
         int ret = userMapper.insert(user);
         // 添加 用户-角色
