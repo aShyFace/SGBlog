@@ -8,14 +8,9 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -38,15 +33,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .maxAge(3600);
     }
 
-//    private CorsConfiguration corsConfig(){
-//        CorsConfiguration corsConfiguration = new CorsConfiguration();
-//        corsConfiguration.addAllowedOrigin("*");
-//        corsConfiguration.addAllowedHeader("*");
-//        corsConfiguration.setAllowedMethods(new ArrayList<String>(Arrays.asList("GET", "POST", "DELETE", "PUT")));
-//        corsConfiguration.setAllowCredentials(true);
-//        corsConfiguration.setMaxAge(3600L);
-//        return corsConfiguration;
-//    }
 //
 //    //有些方法返回的是 包含配置信息的对象。所以我们需要告诉spring，加载的时候获取这些方法的返回值
 //    @Bean

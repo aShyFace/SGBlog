@@ -1,6 +1,7 @@
 package com.example.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.example.config.YamlConfignature;
 import com.example.constant.RedisConstant;
 import com.example.domain.ResponseResult;
 import com.example.domain.entity.LoginUser;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +39,8 @@ import java.util.Objects;
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private RedisCache redisCache;
+    @Resource
+    private YamlConfignature yamlConfignature;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -46,7 +50,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             response.setStatus(HttpStatus.SC_OK);
             // 响应头
             // response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
-            response.setHeader("Access-Control-Allow-Origin", "*");
+            // Access-Control-Allow-Credentials为true时不允许Origin的值为*
+            response.addHeader("Access-Control-Allow-Origin", yamlConfignature.Access_Control_Allow_Origin);
             // response.addHeader("Access-Control-Allow-Origin", "always");
 
             response.setHeader("Access-Control-Allow-Methods", "*");
@@ -76,7 +81,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             *       3. 不匹配authorizeRequests的请求，会得到4开头的响应，内容大概是要你登录
             *           比如这种：InsufficientAuthenticationException: Full authentication is required to access this resource
             * */
+
+            //response.setHeader("Access-Control-Allow-Origin", yamlConfignature.Access_Control_Allow_Origin);
             filterChain.doFilter(request, response);
+            //if (!StringUtils.hasText(response.getHeader("Access-Control-Allow-Origin"))) {
+            //    response.setHeader("Access-Control-Allow-Origin", yamlConfignature.Access_Control_Allow_Origin);
+            //}
             return;
         }
 

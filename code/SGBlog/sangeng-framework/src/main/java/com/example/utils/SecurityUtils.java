@@ -5,6 +5,8 @@ import com.example.domain.entity.LoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.Objects;
+
 /**
  * @ClassName: SecurityUtils
  * @Description: security工具类
@@ -18,6 +20,9 @@ public class SecurityUtils
      **/
     public static LoginUser getLoginUser()
     {
+        if (Objects.isNull(getAuthentication())){
+            return null;
+        }
         return (LoginUser) getAuthentication().getPrincipal();
     }
 

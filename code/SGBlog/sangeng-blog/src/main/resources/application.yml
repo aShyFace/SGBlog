@@ -79,5 +79,5 @@ oss:
   bucket: "fz-admin"
   origin: "rx1o76f3o.hn-bkt.clouddn.com"
 
-#swagger:
-#  title:
+CORS:
+  Access-Control-Allow-Origin: "http://localhost:8080"

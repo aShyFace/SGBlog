@@ -4,14 +4,13 @@ import com.example.constant.ArticleConstant;
 import com.example.domain.entity.Article;
 import com.example.service.ArticleService;
 import com.example.utils.RedisCache;
-import io.swagger.models.auth.In;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -33,7 +32,9 @@ public class ViewCountSchedule {
         List<Article> articleList = viewCountMap.entrySet().stream().map(
                 entity -> new Article(Long.valueOf(entity.getKey()), entity.getValue().longValue())
         ).collect(Collectors.toList());
-        // 可在domain中 使用注解中的属性设置为null的字段是否更新，默认不更新为null的字段
-        articleService.updateBatchById(articleList);
+        if (Objects.nonNull(articleList)){
+            // 可在domain中 使用注解中的属性设置为null的字段是否更新，默认不更新为null的字段
+            articleService.updateBatchById(articleList);
+        }
     }
 }

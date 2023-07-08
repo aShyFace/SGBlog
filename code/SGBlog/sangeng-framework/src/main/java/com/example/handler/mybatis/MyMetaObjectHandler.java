@@ -2,10 +2,12 @@ package com.example.handler.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.example.utils.SecurityUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @ClassName: MyMetaObjectHandler
@@ -13,6 +15,7 @@ import java.util.Date;
  * @author: Zhi
  * @date: 2023/4/10 下午7:44
  */
+@Slf4j
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
@@ -33,7 +36,14 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName("updateTime", new Date(), metaObject);
-        this.setFieldValByName(" ", SecurityUtils.getUserId(), metaObject);
+        if (Objects.nonNull(SecurityUtils.getLoginUser())){
+            this.setFieldValByName("updateTime", new Date(), metaObject);
+            Long userId = SecurityUtils.getUserId();
+            if (Objects.isNull(userId)){
+                userId = -2L; //未登录的游客也可刷新访问量
+            }
+            //log.error("||||| {}::{} |||||", new Exception().getStackTrace()[0], userId);
+            this.setFieldValByName(" ", userId, metaObject);
+        }
     }
 }

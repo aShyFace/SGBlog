@@ -16,8 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 
 /**
  * @ClassName: SecurityConfiguration
@@ -36,6 +40,8 @@ public class SecurityConfiguration {
     private AuthenticationEntryPointImpl authenticationEntryPoint;
     @Resource
     private AccessDeniedHandlerImpl accessDeniedHandler;
+    @Resource
+    private YamlConfignature yamlConfignature;
 
 
     /**
@@ -73,12 +79,13 @@ public class SecurityConfiguration {
                     // 登录接口在这里设置没用，得去webSecurityCustomizer设置
                     .authorizeRequests(authorize -> authorize
                             // .mvcMatchers().anonymous()
-                            .mvcMatchers("/login", "/register", "/upload", "/link/getAllLink").anonymous()
+                            .mvcMatchers("/login", "/register").anonymous()
                             .mvcMatchers("/logout", "/user/**", "/comment/**", "/link/**").authenticated()
                             // // 实际上，访问这个接口的时候前端不会携带token，所以这个接口只用来测试权限认证是否开启
                             // .mvcMatchers("/link/getAllLink").authenticated()
                             .anyRequest().permitAll()
                     )
+                    .cors().configurationSource(corsConfigurationSource()).and()
                     // 认证用户时用户信息加载配置，注入springAuthUserService
                     .userDetailsService(userDetailsService)
                     .logout().disable()
@@ -87,7 +94,18 @@ public class SecurityConfiguration {
                     .build();
     }
 
+    CorsConfigurationSource corsConfigurationSource(){
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
+        corsConfiguration.setAllowedMethods(Arrays.asList("*"));
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowedOrigins(Arrays.asList(yamlConfignature.Access_Control_Allow_Origin));
 
+        corsConfiguration.setMaxAge(3600L);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**",corsConfiguration);
+        return source;
+    }
 
 
 }
