@@ -80,4 +80,4 @@ oss:
   origin: "rx1o76f3o.hn-bkt.clouddn.com"
 
 CORS:
-  Access-Control-Allow-Origin: "http://localhost:8080"
+  Access-Control-Allow-Origin: "*"

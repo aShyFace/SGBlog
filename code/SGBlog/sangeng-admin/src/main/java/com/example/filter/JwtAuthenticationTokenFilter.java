@@ -55,7 +55,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             // 响应状态设置为200
             response.setStatus(HttpStatus.SC_OK);
             // 响应头
-            // response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+            // response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Origin", "*");
             // response.addHeader("Access-Control-Allow-Origin", "always");
 

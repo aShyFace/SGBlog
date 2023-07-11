@@ -32,6 +32,7 @@ import javax.annotation.Resource;
 @RestController
 @Api(tags = "评论相关接口")
 @RequestMapping("/comment")
+@CrossOrigin(origins = "*")
 public class CommentController {
     /**
      * 服务对象

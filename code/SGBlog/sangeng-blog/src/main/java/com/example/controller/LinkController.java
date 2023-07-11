@@ -1,8 +1,6 @@
 package com.example.controller;
 
 
-
-
 import com.example.domain.ResponseResult;
 import com.example.domain.vo.LinkVo;
 import com.example.service.LinkService;
@@ -10,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +27,7 @@ import java.util.List;
 @RestController
 @Api(tags = "友链相关接口")
 @RequestMapping("/link")
+@CrossOrigin(origins = "*")
 public class LinkController {
     /**
      * 服务对象

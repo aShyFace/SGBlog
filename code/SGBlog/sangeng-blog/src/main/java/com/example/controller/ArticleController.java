@@ -37,7 +37,7 @@ import java.util.List;
 @RestController //告诉springMvc，别把controller的返回值当作modelView解析，而是把它写入响应体中
 @Api(tags = "文章相关接口")
 @RequestMapping("/article")
-//@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 public class ArticleController {
     /**
      * 服务对象

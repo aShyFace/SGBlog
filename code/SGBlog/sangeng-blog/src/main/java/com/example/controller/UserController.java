@@ -32,6 +32,7 @@ import java.util.Objects;
 @RestController
 @Api(tags = "用户相关接口")
 @RequestMapping("/user")
+@CrossOrigin(origins = "*")
 public class UserController {
     /**
      * 服务对象

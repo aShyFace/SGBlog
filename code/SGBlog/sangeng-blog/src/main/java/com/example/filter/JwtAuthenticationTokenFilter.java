@@ -42,6 +42,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Resource
     private YamlConfignature yamlConfignature;
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // 0. 处理之前，先判断请求是否为OPTIONS
@@ -49,7 +50,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             // 响应状态设置为200
             response.setStatus(HttpStatus.SC_OK);
             // 响应头
-            // response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+            // response.setHeader("Access-Control-Allow-Origin", "*");
             // Access-Control-Allow-Credentials为true时不允许Origin的值为*
             response.addHeader("Access-Control-Allow-Origin", yamlConfignature.Access_Control_Allow_Origin);
             // response.addHeader("Access-Control-Allow-Origin", "always");

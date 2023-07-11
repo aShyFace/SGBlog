@@ -1,20 +1,18 @@
 package com.example.controller;
 
-import com.example.constant.UploadFileConstant;
 import com.example.domain.ResponseResult;
-import com.example.enums.AppHttpCodeEnum;
-import com.example.exception.SystemException;
 import com.example.service.impl.UploadServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
 /**
  * @ClassName: UploadController
@@ -26,6 +24,7 @@ import java.util.Objects;
 @Validated
 @RestController
 @Api(tags = "上传接口")
+@CrossOrigin(origins = "*")
 public class UploadController {
     @Resource
     private UploadServiceImpl uploadService;

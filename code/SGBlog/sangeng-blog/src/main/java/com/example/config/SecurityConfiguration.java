@@ -85,7 +85,8 @@ public class SecurityConfiguration {
                             // .mvcMatchers("/link/getAllLink").authenticated()
                             .anyRequest().permitAll()
                     )
-                    .cors().configurationSource(corsConfigurationSource()).and()
+                    //.addFilterAfter(afterLoginFilter, UsernamePasswordAuthenticationFilter.class)
+                    //.cors().configurationSource(corsConfigurationSource()).and()
                     // 认证用户时用户信息加载配置，注入springAuthUserService
                     .userDetailsService(userDetailsService)
                     .logout().disable()

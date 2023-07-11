@@ -26,6 +26,7 @@ import java.util.List;
 @RestController
 @Api(tags = "文章类别相关接口")
 @RequestMapping("/category")
+@CrossOrigin(origins = "*")
 public class CategoryController {
     /**
      * 服务对象
