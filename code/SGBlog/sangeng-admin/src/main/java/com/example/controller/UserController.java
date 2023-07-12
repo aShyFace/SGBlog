@@ -34,6 +34,7 @@ import javax.validation.constraints.Min;
 @RestController
 @Api(tags = "登录接口")
 @RequestMapping("/system/user")
+//@CrossOrigin(origins = "*")
 public class UserController {
     /**
      * 服务对象

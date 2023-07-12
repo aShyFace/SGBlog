@@ -30,6 +30,9 @@ public class ArticlePreviewVo {
     @ApiModelProperty(value = "所属分类")
     private String categoryName;
 
+    @ApiModelProperty(value = "分类id")
+    private String categoryId;
+
     @ApiModelProperty(value = "缩略图")
     private String thumbnail;
 

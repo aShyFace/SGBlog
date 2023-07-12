@@ -73,6 +73,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
 
+    @Transactional
     public boolean register(UserAuthDto userAuthDto) {
         if (userNameExist(userAuthDto.getUserName())){
             throw new SystemException(AppHttpCodeEnum.USERNAME_EXIST);

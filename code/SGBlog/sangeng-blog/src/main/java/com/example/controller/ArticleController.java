@@ -66,7 +66,7 @@ public class ArticleController {
            @ApiImplicitParam(name = "categoryId",value = "分类id"),
     })
     public ResponseResult<List<ArticlePreviewVo>> articleList(@Validated(value = ValidationGroups.PageParams.class) PageParams pageParams,
-                                                              @Valid @NotNull(message = "分类id不能为空") @Min(1L) Long categoryId){
+                                                              @Valid @NotNull(message = "分类id不能为空") @Min(0L) Long categoryId){
         PageResult<ArticlePreviewVo> pageArticle = articleService.articleList(pageParams, categoryId);
         return ResponseResult.okResult(pageArticle);
     }

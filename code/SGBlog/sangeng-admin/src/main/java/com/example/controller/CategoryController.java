@@ -41,6 +41,7 @@ import java.util.List;
 @RestController
 @Api(tags = "登录接口")
 @RequestMapping("/content/category")
+//@CrossOrigin(origins = "*")
 public class CategoryController {
     /**
      * 服务对象

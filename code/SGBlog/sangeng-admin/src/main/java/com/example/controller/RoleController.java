@@ -30,6 +30,7 @@ import java.util.List;
 @RestController
 @Api(tags = "登录接口")
 @RequestMapping("/system/role")
+//@CrossOrigin(origins = "*")
 public class RoleController {
     /**
      * 服务对象

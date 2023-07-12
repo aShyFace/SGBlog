@@ -30,6 +30,7 @@ import javax.validation.constraints.Min;
 @RestController
 @Api(tags = "登录接口")
 @RequestMapping("/content/article")
+//@CrossOrigin(origins = "*")
 public class ArticleController {
     /**
      * 服务对象

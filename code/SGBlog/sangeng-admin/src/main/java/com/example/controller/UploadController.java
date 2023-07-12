@@ -24,6 +24,7 @@ import javax.validation.constraints.NotNull;
 @RestController
 @Api(tags = "文件上传接口")
 //@RequestMapping("/content/category")
+//@CrossOrigin(origins = "*")
 public class UploadController {
   @Resource
   private UploadService uploadService;

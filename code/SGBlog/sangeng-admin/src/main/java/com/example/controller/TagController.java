@@ -32,6 +32,7 @@ import java.util.Objects;
 @RestController
 @Api(tags = "登录接口")
 @RequestMapping("/content/tag")
+//@CrossOrigin(origins = "*")
 public class TagController {
     @Resource
     private TagService tagService;

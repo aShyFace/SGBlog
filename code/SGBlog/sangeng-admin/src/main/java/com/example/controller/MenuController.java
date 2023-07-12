@@ -31,6 +31,7 @@ import java.util.List;
 @RestController
 @Api(tags = "登录接口")
 @RequestMapping("/system/menu")
+//@CrossOrigin(origins = "*")
 public class MenuController {
   /**
    * 服务对象

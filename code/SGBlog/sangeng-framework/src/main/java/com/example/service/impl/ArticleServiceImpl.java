@@ -69,31 +69,48 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Map<String, Integer> viewCount = redisCache.getCacheMap(ArticleConstant.ARTICLE_VIEWCOUNT_KEY);
         hotArticleVoList.stream().forEach(hotArticleVo -> {
             String key = hotArticleVo.getId().toString();
-            hotArticleVo.setViewCount(viewCount.get(key).longValue());
+            if (Objects.nonNull(viewCount.get(key))) {
+                hotArticleVo.setViewCount(viewCount.get(key).longValue());
+            }else{
+                hotArticleVo.setViewCount(0L);
+            }
+
         });
         return hotArticleVoList;
     }
 
 
     public PageResult<ArticlePreviewVo> articleList(PageParams pageParams, Long categoryId) {
-//        分页查询
         LambdaQueryWrapper<Article> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(Article::getStatus, ArticleConstant.ARTICLE_IS_DRAFT)
-                .eq(Article::getCategoryId, categoryId).orderByDesc(Article::getIsTop);
+        lqw.eq(Article::getStatus, ArticleConstant.ARTICLE_IS_DRAFT).orderByDesc(Article::getIsTop);
+        // 查询分类id
+        List<Category> categoryList = null;
+        if (!categoryId.equals(0L)){
+            lqw.eq(Article::getCategoryId, categoryId);
+            categoryList = categoryMapper.selectList(new LambdaQueryWrapper<Category>().eq(Category::getId, categoryId));
+        }else {
+            categoryList = categoryMapper.selectList(null);
+        }
+        Map<Long, String> categoryMap = categoryList.stream().collect(Collectors.toMap(
+          Category::getId, Category::getName, (value1, value2) -> value1
+        ));
+
         Page<Article> page = new Page(pageParams.getPageNum(), pageParams.getPageSize());
         page(page, lqw);
         List<Article> articleList = page.getRecords();
-
-//        把分类名称设置到分页查询结果中
+        // 把分类名称设置到分页查询结果中
         Map<String, Integer> viewCount = redisCache.getCacheMap(ArticleConstant.ARTICLE_VIEWCOUNT_KEY);
-        String categoryName = categoryMapper.selectById(categoryId).getName();
         List<ArticlePreviewVo> articlePreviewVoList = BeanCopyUtils.copyBeanList(articleList, ArticlePreviewVo.class)
-                                        .stream().map(articlePreviewVo -> {
-                                            articlePreviewVo.setCategoryName(categoryName);
-                                            articlePreviewVo.setContent(" "); //热门文章列表不显示内容
-                                            String key = articlePreviewVo.getId().toString();
-                                            articlePreviewVo.setViewCount(viewCount.get(key).longValue());
-                                            return articlePreviewVo;
+                                        .stream().map(apv -> {
+                                            apv.setCategoryName(categoryMap.get(apv.getCategoryId()));
+                                            apv.setContent(" "); //热门文章列表不显示内容
+                                            String key = apv.getId().toString();
+                                            if (Objects.nonNull(viewCount.get(key))) {
+                                                apv.setViewCount(viewCount.get(key).longValue());
+                                            }else{
+                                                apv.setViewCount(0L);
+                                            }
+                                            return apv;
                                         }).collect(Collectors.toList());
         PageResult<ArticlePreviewVo> pageResult = new PageResult<>(articlePreviewVoList, articleList.size(), pageParams.getPageNum(), pageParams.getPageSize());
         return pageResult;
